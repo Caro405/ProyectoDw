@@ -4,3 +4,9 @@ git add .
 git commit -m " "
 git push origin 
 
+git checkout main
+git pull origin main
+git merge dev
+git add .
+git commit -m "Resuelto conflicto al fusionar dev en main"
+
