@@ -9,4 +9,5 @@ git pull origin main
 git merge dev
 git add .
 git commit -m "Resuelto conflicto al fusionar dev en main"
+git push origin main
 
