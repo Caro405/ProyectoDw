@@ -20,12 +20,18 @@
             </tr>
         </thead>
         <tbody>
+            <tr th:if="${listaCiudades.empty}">
+                <td colspan="5">No hay ciudades registradas.</td>
+            </tr>
             <tr th:each="ciudad : ${listaCiudades}">
                 <td th:text="${ciudad.nombre}"></td>
                 <td th:text="${ciudad.impuestos}"></td>
                 <td><a th:href="@{/ciudad/view/{id}(id=${ciudad.id})}">Ver</a></td>
                 <td><a th:href="@{/ciudad/edit/{id}(id=${ciudad.id})}">Editar</a></td>
-                <td><a th:href="@{/ciudad/delete/{id}(id=${ciudad.id})}" onclick="return confirm('¿Seguro que deseas eliminar?')">Eliminar</a></td>
+                <td>
+                    <a th:href="@{/ciudad/delete/{id}(id=${ciudad.id})}"
+                       onclick="return confirm('¿Seguro que deseas eliminar esta ciudad?')">Eliminar</a>
+                </td>
             </tr>
         </tbody>
     </table>

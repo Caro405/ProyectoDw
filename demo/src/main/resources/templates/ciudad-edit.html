@@ -14,10 +14,10 @@
         <input type="text" id="nombre" name="nombre" th:value="${ciudad.nombre}" required>
 
         <label>Impuestos:</label>
-        <input type="number" id="impuestos" name="impuestos" th:value="${ciudad.impuestos}" required>
+        <input type="number" id="impuestos" name="impuestos" th:value="${ciudad.impuestos}" step="0.01" required>
 
         <button type="submit">Guardar</button>
-        <a href="/ciudad/list"><button type="button">Volver</button></a>
+        <a href="/ciudad/list">Volver</a>
     </form>
 </body>
 </html>
