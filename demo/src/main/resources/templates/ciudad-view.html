@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles de la Ruta</title>
+</head>
+<body>
+    <h1>Detalles de la Ruta</h1>
+
+    <ul>
+        <li><strong>Distancia:</strong> <span th:text="${ruta.distancia}"></span></li>
+        <li><strong>Es Segura:</strong> <span th:text="${ruta.esSegura}"></span></li>
+        <li><strong>Ataque:</strong> <span th:text="${ruta.ataque}"></span></li>
+        <li><strong>Causa de Ataque:</strong> <span th:text="${ruta.causaAtaque}"></span></li>
+        <li><strong>Ciudad Origen:</strong> <span th:text="${ruta.ciudadOrigenId}"></span></li>
+        <li><strong>Ciudad Destino:</strong> <span th:text="${ruta.ciudadDestinoId}"></span></li>
+    </ul>
+
+    <a href="/ruta/list">Volver</a>
+</body>
+</html>

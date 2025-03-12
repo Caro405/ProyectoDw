@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Ruta</title>
+</head>
+<body>
+    <h1>Editar Ruta</h1>
+
+    <form action="/ruta/save" method="post">
+        <input type="hidden" name="id" th:value="${ruta.id}">
+
+        <label>Distancia:</label>
+        <input type="number" id="distancia" name="distancia" th:value="${ruta.distancia}" required>
+
+        <label>Es Segura:</label>
+        <select id="esSegura" name="esSegura">
+            <option value="true" th:selected="${ruta.esSegura}">Sí</option>
+            <option value="false" th:selected="${!ruta.esSegura}">No</option>
+        </select>
+
+        <label>Ataque:</label>
+        <input type="number" id="ataque" name="ataque" th:value="${ruta.ataque}" required>
+
+        <label>Causa de Ataque:</label>
+        <input type="text" id="causaAtaque" name="causaAtaque" th:value="${ruta.causaAtaque}">
+
+        <label>Ciudad Origen:</label>
+        <select id="ciudadOrigenId" name="ciudadOrigenId">
+            <option th:each="ciudad : ${listaCiudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" th:selected="${ciudad.id == ruta.ciudadOrigenId}"></option>
+        </select>
+
+        <label>Ciudad Destino:</label>
+        <select id="ciudadDestinoId" name="ciudadDestinoId">
+            <option th:each="ciudad : ${listaCiudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" th:selected="${ciudad.id == ruta.ciudadDestinoId}"></option>
+        </select>
+
+        <button type="submit">Guardar</button>
+        <a href="/ruta/list"><button type="button">Volver</button></a>
+    </form>
+</body>
+</html>
