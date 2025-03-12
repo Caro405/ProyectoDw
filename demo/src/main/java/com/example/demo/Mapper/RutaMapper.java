@@ -10,22 +10,19 @@ public class RutaMapper {
             ruta.getId(),
             ruta.getDistancia(),
             ruta.isEsSegura(),
-            ruta.getAtaque(),
-            ruta.getCausaAtaque(),
+            ruta.getAtaque(), 
+            ruta.getCausaAtaque(), 
             ruta.getCiudadOrigen() != null ? ruta.getCiudadOrigen().getId() : null,
             ruta.getCiudadDestino() != null ? ruta.getCiudadDestino().getId() : null
         );
     }
 
     public static Ruta toEntity(RutaDTO rutaDTO, Ciudad ciudadOrigen, Ciudad ciudadDestino) {
-        Ruta ruta = new Ruta(
+        return new Ruta(
             rutaDTO.getDistancia(),
             rutaDTO.isEsSegura(),
             rutaDTO.getAtaque(),
             rutaDTO.getCausaAtaque()
         );
-        ruta.setCiudadOrigen(ciudadOrigen);
-        ruta.setCiudadDestino(ciudadDestino);
-        return ruta;
     }
 }

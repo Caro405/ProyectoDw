@@ -2,21 +2,21 @@ package com.example.demo.dto;
 
 public class RutaDTO {
     private Long id;
-    private double distancia;
+    private int distancia; 
     private boolean esSegura;
-    private double ataque;
+    private int ataque; 
     private String causaAtaque;
     private Long ciudadOrigenId;
     private Long ciudadDestinoId;
 
     public RutaDTO() {}
 
-    public RutaDTO(Long id, double distancia, boolean esSegura, double ataque, String causaAtaque, Long ciudadOrigenId, Long ciudadDestinoId) {
+    public RutaDTO(Long id, int distancia, boolean esSegura, int ataque, String causaAtaque, Long ciudadOrigenId, Long ciudadDestinoId) {
         this.id = id;
         this.distancia = distancia;
         this.esSegura = esSegura;
-        this.ataque = ataque;
-        this.causaAtaque = causaAtaque;
+        this.ataque = esSegura ? 0 : ataque; // 🔹 Si es segura, ataque = 0
+        this.causaAtaque = esSegura ? null : causaAtaque; // 🔹 Si es segura, causaAtaque = null
         this.ciudadOrigenId = ciudadOrigenId;
         this.ciudadDestinoId = ciudadDestinoId;
     }
@@ -24,17 +24,27 @@ public class RutaDTO {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public double getDistancia() { return distancia; }
-    public void setDistancia(double distancia) { this.distancia = distancia; }
+    public int getDistancia() { return distancia; }
+    public void setDistancia(int distancia) { this.distancia = distancia; }
 
     public boolean isEsSegura() { return esSegura; }
-    public void setEsSegura(boolean esSegura) { this.esSegura = esSegura; }
+    public void setEsSegura(boolean esSegura) { 
+        this.esSegura = esSegura; 
+        if (esSegura) { 
+            this.ataque = 0; 
+            this.causaAtaque = null; 
+        }
+    }
 
-    public double getAtaque() { return ataque; }
-    public void setAtaque(double ataque) { this.ataque = ataque; }
+    public int getAtaque() { return ataque; }
+    public void setAtaque(int ataque) { 
+        this.ataque = esSegura ? 0 : ataque; 
+    }
 
     public String getCausaAtaque() { return causaAtaque; }
-    public void setCausaAtaque(String causaAtaque) { this.causaAtaque = causaAtaque; }
+    public void setCausaAtaque(String causaAtaque) { 
+        this.causaAtaque = esSegura ? null : causaAtaque; 
+    }
 
     public Long getCiudadOrigenId() { return ciudadOrigenId; }
     public void setCiudadOrigenId(Long ciudadOrigenId) { this.ciudadOrigenId = ciudadOrigenId; }

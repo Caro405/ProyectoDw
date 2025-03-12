@@ -34,7 +34,7 @@ public class DbInitializer implements CommandLineRunner {
         List<Ciudad> ciudades = IntStream.rangeClosed(1, 100)
                 .mapToObj(i -> new Ciudad(
                         "Ciudad " + i, 
-                        generarImpuestosAleatorios() // Genera impuestos con 2 decimales
+                        generarImpuestosAleatorios()
                 ))
                 .collect(Collectors.toList());
 
@@ -51,11 +51,14 @@ public class DbInitializer implements CommandLineRunner {
                 ciudadDestino = getRandomCiudad(ciudades);
             }
 
+            boolean esSegura = random.nextBoolean();
+            String causaAtaque = esSegura ? null : (random.nextBoolean() ? "Bandidos" : "Desastre Natural");
+
             Ruta ruta = new Ruta(
-                    random.nextDouble() * 500,  // Distancia entre 0 y 500 km
-                    random.nextBoolean(),       // Es segura o no
-                    random.nextDouble() * 100,  // Nivel de ataque entre 0 y 100
-                    "Causa de ataque " + (i + 1)
+                random.nextInt(991) + 10,  // 🔹 Distancia entre 10 y 1000
+                esSegura,                   // 🔹 Definir si es segura
+                esSegura ? 0 : random.nextInt(101), // 🔹 Si es segura, ataque = 0
+                causaAtaque                  // 🔹 Si es segura, causaAtaque = null
             );
 
             ruta.setCiudadOrigen(ciudadOrigen);
@@ -63,7 +66,7 @@ public class DbInitializer implements CommandLineRunner {
             rutaRepository.save(ruta);
         }
 
-        System.out.println("30 rutas generadas.");
+        System.out.println("30 rutas generadas con distancias y ataques enteros.");
         System.out.println("Inicialización de la base de datos completada.");
     }
 
@@ -75,5 +78,4 @@ public class DbInitializer implements CommandLineRunner {
         return BigDecimal.valueOf(random.nextDouble() * 10)
                          .setScale(2, RoundingMode.HALF_UP);
     }
-    
 }

@@ -9,9 +9,9 @@ public class Ruta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private double distancia;
+    private int distancia;
     private boolean esSegura;
-    private double ataque;
+    private int ataque;
     private String causaAtaque;
 
     // Relaciones
@@ -23,28 +23,33 @@ public class Ruta {
 
     public Ruta() {}
 
-    public Ruta(double distancia, boolean esSegura, double ataque, String causaAtaque) {
+    public Ruta(int distancia, boolean esSegura, int ataque, String causaAtaque) {
         this.distancia = distancia;
         this.esSegura = esSegura;
         this.ataque = ataque;
-        this.causaAtaque = causaAtaque;
+        this.causaAtaque = esSegura ? null : causaAtaque; 
     }
 
     // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public double getDistancia() { return distancia; }
-    public void setDistancia(double distancia) { this.distancia = distancia; }
+    public int getDistancia() { return distancia; }
+    public void setDistancia(int distancia) { this.distancia = distancia; }
 
     public boolean isEsSegura() { return esSegura; }
-    public void setEsSegura(boolean esSegura) { this.esSegura = esSegura; }
+    public void setEsSegura(boolean esSegura) { 
+        this.esSegura = esSegura;
+        if (esSegura) this.causaAtaque = null; 
+    }
 
-    public double getAtaque() { return ataque; }
-    public void setAtaque(double ataque) { this.ataque = ataque; }
+    public int getAtaque() { return ataque; }
+    public void setAtaque(int ataque) { this.ataque = ataque; }
 
     public String getCausaAtaque() { return causaAtaque; }
-    public void setCausaAtaque(String causaAtaque) { this.causaAtaque = causaAtaque; }
+    public void setCausaAtaque(String causaAtaque) { 
+        this.causaAtaque = esSegura ? null : causaAtaque; 
+    }
 
     public Ciudad getCiudadOrigen() { return ciudadOrigen; }
     public void setCiudadOrigen(Ciudad ciudadOrigen) { this.ciudadOrigen = ciudadOrigen; }
