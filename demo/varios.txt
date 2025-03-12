@@ -10,3 +10,4 @@ git merge dev
 git add .
 git commit -m "Resuelto conflicto al fusionar dev en main"
 
+./mvnw spring-boot:run

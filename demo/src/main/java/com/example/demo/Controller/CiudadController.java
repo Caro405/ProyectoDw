@@ -54,18 +54,19 @@ public class CiudadController {
         return new ModelAndView("ciudad-edit").addObject("ciudad", ciudadDTO.get());
     }
 
+    
     // Guardar ciudad (crear o actualizar)
     @PostMapping("/save")
-    public RedirectView guardarCiudad(@ModelAttribute CiudadDTO ciudadDTO) {
+    public String guardarCiudad(@ModelAttribute CiudadDTO ciudadDTO) {
         ciudadService.guardarCiudad(ciudadDTO);
-        return new RedirectView("/ciudad/list");
-    }
+        return "redirect:/ciudad/list"; 
+}
 
-    // Eliminar ciudad
     @GetMapping("/delete/{id}")
-    public RedirectView borrarCiudad(@PathVariable Long id) {
+        public String borrarCiudad(@PathVariable Long id) {
         ciudadService.eliminarCiudad(id);
-        return new RedirectView("/ciudad/list");
-    }
+        return "redirect:/ciudad/list"; 
+}
+
 }
 
