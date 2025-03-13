@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+<<<<<<< HEAD
 import com.example.demo.dto.RutaDTO;
 import com.example.demo.Mapper.RutaMapper;
 import com.example.demo.Model.Ciudad;
@@ -42,4 +43,8 @@ public class RutaService {
     public void eliminarRuta(Long id) {
         rutaRepository.deleteById(id);
     }
+=======
+public class RutaService {
+
+>>>>>>> main
 }
