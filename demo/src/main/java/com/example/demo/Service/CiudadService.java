@@ -1,6 +1,5 @@
 package com.example.demo.Service;
 
-<<<<<<< HEAD
 import com.example.demo.dto.CiudadDTO;
 import com.example.demo.Mapper.CiudadMapper;
 //import com.example.demo.Model.Ciudad;
@@ -36,8 +35,4 @@ public class CiudadService {
     public void eliminarCiudad(Long id) {
         ciudadRepository.deleteById(id);
     }
-=======
-public class CiudadService {
-
->>>>>>> main
 }

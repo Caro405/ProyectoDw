@@ -9,6 +9,7 @@ public class CiudadDTO {
 
     public CiudadDTO() {}
 
+    @SuppressWarnings("deprecation")
     public CiudadDTO(Long id, String nombre, BigDecimal impuestos) {
         this.id = id;
         this.nombre = nombre;
@@ -22,6 +23,7 @@ public class CiudadDTO {
     public void setNombre(String nombre) { this.nombre = nombre; }
 
     public BigDecimal getImpuestos() { return impuestos; }
+    @SuppressWarnings("deprecation")
     public void setImpuestos(BigDecimal impuestos) { 
         this.impuestos = impuestos.setScale(2, BigDecimal.ROUND_HALF_UP);
     }

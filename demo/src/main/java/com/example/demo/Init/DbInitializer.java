@@ -1,3 +1,4 @@
+		
 package com.example.demo.Init;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5,8 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import com.example.demo.Repository.CiudadRepository;
 import com.example.demo.Repository.RutaRepository;
+import com.example.demo.Repository.JugadorRepository;
 import com.example.demo.Model.Ciudad;
 import com.example.demo.Model.Ruta;
+import com.example.demo.Model.Jugador;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,6 +27,9 @@ public class DbInitializer implements CommandLineRunner {
     @Autowired
     private RutaRepository rutaRepository;
 
+    @Autowired
+    private JugadorRepository jugadorRepository;
+
     private final Random random = new Random();
 
     @Override
@@ -39,7 +45,7 @@ public class DbInitializer implements CommandLineRunner {
                 .collect(Collectors.toList());
 
         ciudadRepository.saveAll(ciudades);
-        System.out.println("100 ciudades creadas con impuestos ajustados a 2 decimales.");
+        System.out.println("Las 100 ciudades fueron correctamente");
 
         // Crear 30 rutas aleatorias entre ciudades existentes
         for (int i = 0; i < 30; i++) {
@@ -55,18 +61,28 @@ public class DbInitializer implements CommandLineRunner {
             String causaAtaque = esSegura ? null : (random.nextBoolean() ? "Bandidos" : "Desastre Natural");
 
             Ruta ruta = new Ruta(
-                random.nextInt(991) + 10,  // 🔹 Distancia entre 10 y 1000
-                esSegura,                   // 🔹 Definir si es segura
-                esSegura ? 0 : random.nextInt(101), // 🔹 Si es segura, ataque = 0
-                causaAtaque                  // 🔹 Si es segura, causaAtaque = null
-            );
+                random.nextInt(991) + 10,  
+                esSegura,                   
+                esSegura ? 0 : random.nextInt(101), 
+                causaAtaque);
 
             ruta.setCiudadOrigen(ciudadOrigen);
             ruta.setCiudadDestino(ciudadDestino);
             rutaRepository.save(ruta);
         }
+        System.out.println(" Las 30 rutas fueron generadas correctamente");
 
-        System.out.println("30 rutas generadas con distancias y ataques enteros.");
+        // Crear los 10 jugadores con roles aleatorios
+        String[] roles = {"Comerciante", "Caravanero", "Administrador"};
+        List<Jugador> jugadores = IntStream.rangeClosed(1, 10)
+                .mapToObj(i -> new Jugador(
+                        "Jugador " + i,
+                        roles[random.nextInt(roles.length)]))
+                .collect(Collectors.toList());
+
+        jugadorRepository.saveAll(jugadores);
+        System.out.println("10 jugadores generados con roles aleatorios.");
+
         System.out.println("Inicialización de la base de datos completada.");
     }
 
