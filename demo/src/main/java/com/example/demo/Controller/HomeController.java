@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")  // Página principal
     public String mostrarInicio() {
-        return "inicio-view";  // Coincide con el nombre del archivo en templates
+        return "inicio-view"; 
     }
 }
