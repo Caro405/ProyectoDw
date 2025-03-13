@@ -2,12 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
     <title>Lista de Ciudades</title>
 </head>
 <body>
+    <div class="container"> 
     <h1>Lista de Ciudades</h1>
 
-    <p><a th:href="@{/ciudad/create}">Crear Ciudad</a></p>
+    <p><a th:href="@{/ciudad/create}"><button type="button">Crear Ciudad</button></a></p>
 
     <table border="1">
         <thead>
@@ -35,5 +38,6 @@
             </tr>
         </tbody>
     </table>
+    </div>
 </body>
 </html>

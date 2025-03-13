@@ -117,7 +117,7 @@ public class DbInitializer implements CommandLineRunner {
         productoRepository.saveAll(productos);
         System.out.println(" 50 productos creados con categorías permitidas.");
 
-        System.out.println(" Inicialización de la base de datos completada con éxito. 🚀");
+        System.out.println(" Inicialización de la base de datos completada con éxito. ");
     }
 
     // 🔹 Métodos auxiliares

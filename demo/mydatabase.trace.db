@@ -1615,3 +1615,7 @@ select * from rutas [42102-232]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "select * [*]ruta"
 Syntax error in SQL statement "select * [*]ruta"; SQL statement:
 select * ruta [42000-232]
+2025-03-13 09:17:12.757333-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "select from [*]* ciudad"; se esperaba "identifier"
+Syntax error in SQL statement "select from [*]* ciudad"; expected "identifier"; SQL statement:
+select from * ciudad [42001-232]

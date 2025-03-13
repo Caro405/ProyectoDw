@@ -2,12 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
     <title>Lista de Rutas</title>
 </head>
 <body>
+    <dev class="container">
+    
     <h1>Lista de Rutas</h1>
 
-    <p><a th:href="@{/ruta/create}">Crear Ruta</a></p>
+    <p><a th:href="@{/ruta/create}"><button type="button">Crear Ruta</button></a></p>
 
     <table border="1">
         <thead>
@@ -33,5 +37,7 @@
             </tr>
         </tbody>
     </table>
+
+</dev>
 </body>
 </html>
