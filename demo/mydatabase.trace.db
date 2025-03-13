@@ -1611,3 +1611,7 @@ select * from ciudades [42102-232]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "RUTAS" no encontrada
 Table "RUTAS" not found; SQL statement:
 select * from rutas [42102-232]
+2025-03-12 22:39:29.926904-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "select * [*]ruta"
+Syntax error in SQL statement "select * [*]ruta"; SQL statement:
+select * ruta [42000-232]

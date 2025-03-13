@@ -1,21 +1,20 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+//import java.util.List;
 
 @Entity
 public class Producto {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String nombre;
-    private String categoria;
+
+    @Enumerated(EnumType.STRING)
+    private Categoria categoria;
+
     private double precioBase;
     private double factorOferta;
     private double factorDemanda;
@@ -24,74 +23,46 @@ public class Producto {
     @JoinColumn(name = "ciudad_id")
     private Ciudad ciudad;
 
-    // Constructores
-
-    public Producto() {
+    // Lista de categorías permitidas
+    public enum Categoria {
+        ESPECIA,
+        TELA,
+        ARMA,
+        METAL_PRECIOSO,
+        GANADO
     }
 
-    public Producto(String nombre, String categoria, double precioBase, double factorOferta, double factorDemanda) {
+    // Constructores
+    public Producto() {}
+
+    public Producto(String nombre, Categoria categoria, double precioBase, double factorOferta, double factorDemanda, Ciudad ciudad) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.precioBase = precioBase;
         this.factorOferta = factorOferta;
         this.factorDemanda = factorDemanda;
+        this.ciudad = ciudad;
     }
 
     // Setters y Getters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
+    public Categoria getCategoria() { return categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public double getPrecioBase() { return precioBase; }
+    public void setPrecioBase(double precioBase) { this.precioBase = precioBase; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public double getFactorOferta() { return factorOferta; }
+    public void setFactorOferta(double factorOferta) { this.factorOferta = factorOferta; }
 
-    public String getCategoria() {
-        return categoria;
-    }
+    public double getFactorDemanda() { return factorDemanda; }
+    public void setFactorDemanda(double factorDemanda) { this.factorDemanda = factorDemanda; }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public double getPrecioBase() {
-        return precioBase;
-    }
-
-    public void setPrecioBase(double precioBase) {
-        this.precioBase = precioBase;
-    }
-
-    public double getFactorOferta() {
-        return factorOferta;
-    }
-
-    public void setFactorOferta(double factorOferta) {
-        this.factorOferta = factorOferta;
-    }
-
-    public double getFactorDemanda() {
-        return factorDemanda;
-    }
-
-    public void setFactorDemanda(double factorDemanda) {
-        this.factorDemanda = factorDemanda;
-    }
- 
-    //
-
-    public Ciudad getCiudad() {
-        return ciudad;
-    } 
-
+    public Ciudad getCiudad() { return ciudad; }
+    public void setCiudad(Ciudad ciudad) { this.ciudad = ciudad; }
 }

@@ -2,22 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Detalles de la Ruta</title>
+    <title>Detalles de la Ciudad</title>
 </head>
 <body>
-    <h1>Detalles de la Ruta</h1>
+    <h1>Detalles de la Ciudad</h1>
 
     <ul>
-        <li><strong>Distancia:</strong> <span th:text="${ruta.distancia}"></span> km</li>
-        <li><strong>Es Segura:</strong> <span th:text="${ruta.esSegura ? 'Sí' : 'No'}"></span></li>
-        <li><strong>Ataque:</strong> <span th:text="${ruta.ataque}"></span></li>
-        <li th:if="${ruta.causaAtaque != null}">
-            <strong>Causa de Ataque:</strong> <span th:text="${ruta.causaAtaque}"></span>
-        </li>
-        <li><strong>Ciudad Origen:</strong> <span th:text="${ruta.ciudadOrigen.nombre}"></span></li>
-        <li><strong>Ciudad Destino:</strong> <span th:text="${ruta.ciudadDestino.nombre}"></span></li>
+        <li><strong>Nombre:</strong> <span th:text="${ciudad.nombre}"></span></li>
+        <li><strong>Impuestos:</strong> <span th:text="${ciudad.impuestos}"></span> %</li>
     </ul>
 
-    <a href="/ruta/list">Volver</a>
+    <a href="/ciudad/list">
+        <button type="button">Volver</button>
+    </a>
 </body>
 </html>

@@ -15,20 +15,21 @@ public class Servicio {
 
     private String nombreservicio;
     private double precio;
-    private String efecto;
+    private int porcentajeEfecto;
 
     @ManyToOne
     private Ciudad ciudad;
 
     // Constructores
 
-    public Servicio() {
-    }
+    public Servicio() {}
 
-    public Servicio(String nombreservicio, double precio, String efecto) {
+    public Servicio(Long id, String nombreservicio, double precio, int porcentajeEfecto, Ciudad ciudad) {
+        this.id = id;
         this.nombreservicio = nombreservicio;
         this.precio = precio;
-        this.efecto = efecto;
+        this.porcentajeEfecto = porcentajeEfecto;
+        this.ciudad = ciudad;
     }
 
     // Setters y getters
@@ -57,12 +58,12 @@ public class Servicio {
         this.precio = precio;
     }
 
-    public String getEfecto() {
-        return efecto;
+    public int getPorcentajeEfecto() {
+        return porcentajeEfecto;
     }
 
-    public void setEfecto(String efecto) {
-        this.efecto = efecto;
+    public void setPorcentajeEfecto(int porcentajeEfecto) {
+        this.porcentajeEfecto = porcentajeEfecto;
     }
 
     //

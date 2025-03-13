@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-//import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/ruta")
@@ -45,5 +44,27 @@ public class RutaController {
     public String borrarRuta(@PathVariable Long id) {
         rutaService.eliminarRuta(id);
         return "redirect:/ruta/list";
+    }
+
+    // 🔹 Ver detalles de una ruta
+    @GetMapping("/view/{id}")
+    public ModelAndView verRuta(@PathVariable Long id) {
+        Optional<RutaDTO> rutaDTO = rutaService.obtenerRutaPorId(id);
+        if (rutaDTO.isEmpty()) {
+            return new ModelAndView("redirect:/ruta/list");
+        }
+        return new ModelAndView("ruta-view").addObject("ruta", rutaDTO.get());
+    }
+
+    // 🔹 Formulario para editar una ruta
+    @GetMapping("/edit/{id}")
+    public ModelAndView formularioEditarRuta(@PathVariable Long id) {
+        Optional<RutaDTO> rutaDTO = rutaService.obtenerRutaPorId(id);
+        if (rutaDTO.isEmpty()) {
+            return new ModelAndView("redirect:/ruta/list");
+        }
+        return new ModelAndView("ruta-edit")
+                .addObject("ruta", rutaDTO.get())
+                .addObject("listaCiudades", ciudadService.listarCiudades());
     }
 }
