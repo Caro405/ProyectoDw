@@ -4,25 +4,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-//import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Jugador {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String nombre;
 
-    //Constructores
-    public Jugador() {
-    }
+    @OneToMany(mappedBy = "jugador")
+    private List<JugadoresSesion> sesiones;
+
+    public Jugador() {}
 
     public Jugador(String nombre) {
         this.nombre = nombre;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -39,4 +43,11 @@ public class Jugador {
         this.nombre = nombre;
     }
 
+    public List<JugadoresSesion> getSesiones() {
+        return sesiones;
+    }
+
+    public void setSesiones(List<JugadoresSesion> sesiones) {
+        this.sesiones = sesiones;
+    }
 }

@@ -1,27 +1,53 @@
 package com.example.demo.Model;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class JugadoresSesion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    Date ultima_actividad;
+    @ManyToOne
+    private Jugador jugador;
 
-    @OneToMany (mappedBy = "jugadoresSesion")
-    private List<Jugador> jugadores = new ArrayList<>();
+    @ManyToOne
+    private SesionJuego sesionJuego;
 
-    @OneToMany (mappedBy = "jugadoresSesion")
-    private List<Jugador> rol = new ArrayList<>();
+    public JugadoresSesion() {}
 
+    public JugadoresSesion(Jugador jugador, SesionJuego sesionJuego) {
+        this.jugador = jugador;
+        this.sesionJuego = sesionJuego;
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
+
+    public SesionJuego getSesionJuego() {
+        return sesionJuego;
+    }
+
+    public void setSesionJuego(SesionJuego sesionJuego) {
+        this.sesionJuego = sesionJuego;
+    }
 }

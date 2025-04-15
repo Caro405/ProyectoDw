@@ -13,17 +13,18 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    String rol;
+    private String rol;
 
     @ManyToOne
     private JugadoresSesion jugadoresSesion;
 
-    public Rol(){}
+    public Rol() {}
 
     public Rol(String rol) {
         this.rol = rol;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -40,11 +41,11 @@ public class Rol {
         this.rol = rol;
     }
 
-    public JugadoresSesion getJugadoresSesion(){return jugadoresSesion;}
+    public JugadoresSesion getJugadoresSesion() {
+        return jugadoresSesion;
+    }
 
-
-
-    
-
-    
+    public void setJugadoresSesion(JugadoresSesion jugadoresSesion) {
+        this.jugadoresSesion = jugadoresSesion;
+    }
 }

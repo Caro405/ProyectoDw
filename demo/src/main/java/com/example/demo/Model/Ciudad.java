@@ -1,10 +1,12 @@
 package com.example.demo.Model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
-import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.*;
-//import java.util.List;
 
 @Entity
 public class Ciudad {
@@ -15,52 +17,48 @@ public class Ciudad {
 
     private String nombre;
 
-    private Integer impuestos;
-
-    // Relaciones
-    @OneToMany(mappedBy = "ciudadOrigen", cascade = CascadeType.ALL)
-    private List<Ruta> rutasSalida;
-
-    @OneToMany(mappedBy = "ciudadDestino", cascade = CascadeType.ALL)
-    private List<Ruta> rutasLlegada;
+    @OneToMany(mappedBy = "ciudad")
+    private List<Ruta> rutas;
 
     @OneToMany(mappedBy = "ciudad")
-    private List<ProductoCiudad> productoCiudades = new ArrayList<>();
-
-    @OneToMany(mappedBy = "ciudad")
-    private List<ServicioCiudad> servicioCiudades = new ArrayList<>();
-
-    @OneToMany(mappedBy = "ciudad")
-    private List<CaravanaCompra> caravanaCompra = new ArrayList<>();
+    private List<Servicio> servicios;
 
     public Ciudad() {}
 
-    
-    public Ciudad(String nombre, Integer impuestos) {
+    public Ciudad(String nombre) {
         this.nombre = nombre;
-        this.impuestos = impuestos;
     }
 
-    // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public Integer getImpuestos() { return impuestos; }
-    public void setImpuestos(Integer impuestos) { 
-        this.impuestos = impuestos;
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public List<Ruta> getRutasSalida() { return rutasSalida; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public List<Ruta> getRutasLlegada() { return rutasLlegada; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public List<ProductoCiudad> getProductoCiudades() { return productoCiudades;}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public List<ServicioCiudad> getServicioCiudades() { return servicioCiudades; }
+    public List<Ruta> getRutas() {
+        return rutas;
+    }
 
-    public List<CaravanaCompra> getCaravanaCompra() { return caravanaCompra; }
+    public void setRutas(List<Ruta> rutas) {
+        this.rutas = rutas;
+    }
 
+    public List<Servicio> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<Servicio> servicios) {
+        this.servicios = servicios;
+    }
 }

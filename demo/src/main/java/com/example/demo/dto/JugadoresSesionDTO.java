@@ -1,16 +1,16 @@
 package com.example.demo.dto;
 
-public class JugadorDTO {
+public class JugadoresSesionDTO {
 
     private Long id;
-    private String nombre;
-    private Long sesionJuegoId; // Para mantener relación con la sesión
+    private Long jugadorId;
+    private Long sesionJuegoId;
 
-    public JugadorDTO() {}
+    public JugadoresSesionDTO() {}
 
-    public JugadorDTO(Long id, String nombre, Long sesionJuegoId) {
+    public JugadoresSesionDTO(Long id, Long jugadorId, Long sesionJuegoId) {
         this.id = id;
-        this.nombre = nombre;
+        this.jugadorId = jugadorId;
         this.sesionJuegoId = sesionJuegoId;
     }
 
@@ -23,12 +23,12 @@ public class JugadorDTO {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Long getJugadorId() {
+        return jugadorId;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setJugadorId(Long jugadorId) {
+        this.jugadorId = jugadorId;
     }
 
     public Long getSesionJuegoId() {

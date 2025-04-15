@@ -1,32 +1,19 @@
-package com.example.demo.Model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+package com.example.demo.dto;
 
 import java.sql.Date;
-import java.util.List;
 
-@Entity
-public class SesionJuego {
+public class SesionJuegoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String nombre;
     private Integer oro_maximo;
     private Date fecha_inicio;
     private Date fecha_fin;
 
-    @OneToMany(mappedBy = "sesionJuego")
-    private List<JugadoresSesion> jugadores;
+    public SesionJuegoDTO() {}
 
-    public SesionJuego() {}
-
-    public SesionJuego(String nombre, Integer oro_maximo, Date fecha_inicio, Date fecha_fin) {
+    public SesionJuegoDTO(Long id, String nombre, Integer oro_maximo, Date fecha_inicio, Date fecha_fin) {
+        this.id = id;
         this.nombre = nombre;
         this.oro_maximo = oro_maximo;
         this.fecha_inicio = fecha_inicio;
@@ -72,13 +59,5 @@ public class SesionJuego {
 
     public void setFecha_fin(Date fecha_fin) {
         this.fecha_fin = fecha_fin;
-    }
-
-    public List<JugadoresSesion> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(List<JugadoresSesion> jugadores) {
-        this.jugadores = jugadores;
     }
 }
