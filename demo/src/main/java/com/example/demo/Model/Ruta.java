@@ -9,9 +9,9 @@ public class Ruta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int distancia;   
+    private Integer distancia;   
     private boolean esSegura;
-    private int ataque;     
+    private Integer ataque;     
     private String causaAtaque;
 
     @ManyToOne
@@ -22,7 +22,7 @@ public class Ruta {
 
     public Ruta() {}
 
-    public Ruta(int distancia, boolean esSegura, int ataque, String causaAtaque) {
+    public Ruta(Integer distancia, boolean esSegura, Integer ataque, String causaAtaque) {
         this.distancia = distancia;
         this.esSegura = esSegura;
         this.ataque = esSegura ? 0 : ataque;
@@ -33,14 +33,14 @@ public class Ruta {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public int getDistancia() { return distancia; }
-    public void setDistancia(int distancia) { this.distancia = distancia; }
+    public Integer getDistancia() { return distancia; }
+    public void setDistancia(Integer distancia) { this.distancia = distancia; }
 
     public boolean isEsSegura() { return esSegura; }
     public void setEsSegura(boolean esSegura) { this.esSegura = esSegura; }
 
-    public int getAtaque() { return ataque; }
-    public void setAtaque(int ataque) { this.ataque = ataque; }
+    public Integer getAtaque() { return ataque; }
+    public void setAtaque(Integer ataque) { this.ataque = ataque; }
 
     public String getCausaAtaque() { return causaAtaque; }
     public void setCausaAtaque(String causaAtaque) { this.causaAtaque = causaAtaque; }

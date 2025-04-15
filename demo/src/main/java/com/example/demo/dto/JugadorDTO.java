@@ -1,17 +1,15 @@
 package com.example.demo.dto;
 
+public class JugadorDTO {
 
-public class CiudadDTO {
     private Long id;
     private String nombre;
-    private Integer impuestos;
 
-    public CiudadDTO() {}
+    public JugadorDTO() {}
 
-    public CiudadDTO(Long id, String nombre, Integer impuestos) {
+    public JugadorDTO(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.impuestos = impuestos;
     }
 
     public Long getId() { return id; }
@@ -20,7 +18,4 @@ public class CiudadDTO {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public Integer getImpuestos() { return impuestos; }
-    public void setImpuestos(Integer impuestos) { this.impuestos = impuestos;}
-    
 }

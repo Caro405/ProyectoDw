@@ -1,9 +1,13 @@
 package com.example.demo.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Caravana {
@@ -14,20 +18,34 @@ public class Caravana {
 
     private String nombre;
     private Integer velocidad;
-    private Integer capacidadCarga;
-    private double dinero;
-    private Integer puntosVida;
+    private Integer cargaActual;
+    private Integer capacidadMaxCarga;
+    private Integer dinero;
+    private Integer puntosVidaActual;
+    private Integer puntosVidaMax;
+    private boolean guardias;
+
+    @OneToMany (mappedBy = "caravana")
+    private List<Jugador> jugadores = new ArrayList<>();
+
+    @OneToMany(mappedBy = "caravana")
+    private List<Inventario> inventario = new ArrayList<>();
+
+    @OneToMany(mappedBy = "caravana")
+    private List<ServicioCaravana> serviciosComprados = new ArrayList<>();
 
     public Caravana() {}
 
-    public Caravana(Long id, String nombre, Integer velocidad, Integer capacidadCarga, double dinero,
-            Integer puntosVida) {
-        this.id = id;
+    public Caravana(String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero,
+            Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias) {
         this.nombre = nombre;
         this.velocidad = velocidad;
-        this.capacidadCarga = capacidadCarga;
+        this.cargaActual = cargaActual;
+        this.capacidadMaxCarga = capacidadMaxCarga;
         this.dinero = dinero;
-        this.puntosVida = puntosVida;
+        this.puntosVidaActual = puntosVidaActual;
+        this.puntosVidaMax = puntosVidaMax;
+        this.guardias = guardias;
     }
 
     public Long getId() {
@@ -54,28 +72,77 @@ public class Caravana {
         this.velocidad = velocidad;
     }
 
-    public Integer getCapacidadCarga() {
-        return capacidadCarga;
+    public Integer getCargaActual() {
+        return cargaActual;
     }
 
-    public void setCapacidadCarga(Integer capacidadCarga) {
-        this.capacidadCarga = capacidadCarga;
+    public void setCargaActual(Integer cargaActual) {
+        this.cargaActual = cargaActual;
     }
 
-    public double getDinero() {
+    public Integer getCapacidadMaxCarga() {
+        return capacidadMaxCarga;
+    }
+
+    public void setCapacidadMaxCarga(Integer capacidadMaxCarga) {
+        this.capacidadMaxCarga = capacidadMaxCarga;
+    }
+
+    public Integer getDinero() {
         return dinero;
     }
 
-    public void setDinero(double dinero) {
+    public void setDinero(Integer dinero) {
         this.dinero = dinero;
     }
 
-    public Integer getPuntosVida() {
-        return puntosVida;
+    public Integer getPuntosVidaActual() {
+        return puntosVidaActual;
     }
 
-    public void setPuntosVida(Integer puntosVida) {
-        this.puntosVida = puntosVida;
+    public void setPuntosVidaActual(Integer puntosVidaActual) {
+        this.puntosVidaActual = puntosVidaActual;
     }
+
+    public Integer getPuntosVidaMax() {
+        return puntosVidaMax;
+    }
+
+    public void setPuntosVidaMax(Integer puntosVidaMax) {
+        this.puntosVidaMax = puntosVidaMax;
+    }
+
+    public boolean isGuardias() {
+        return guardias;
+    }
+
+    public void setGuardias(boolean guardias) {
+        this.guardias = guardias;
+    }
+
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public List<Inventario> getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(List<Inventario> inventario) {
+        this.inventario = inventario;
+    }
+
+    public List<ServicioCaravana> getServiciosComprados() {
+        return serviciosComprados;
+    }
+
+    public void setServiciosComprados(List<ServicioCaravana> serviciosComprados) {
+        this.serviciosComprados = serviciosComprados;
+    }
+
 
 }

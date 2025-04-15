@@ -1,17 +1,10 @@
 package com.example.demo.Model;
 
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.*;
 //import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Ciudad {
@@ -22,8 +15,7 @@ public class Ciudad {
 
     private String nombre;
 
-    @Column(precision = 10, scale = 2) // Dos decimales
-    private BigDecimal impuestos;
+    private Integer impuestos;
 
     // Relaciones
     @OneToMany(mappedBy = "ciudadOrigen", cascade = CascadeType.ALL)
@@ -32,12 +24,21 @@ public class Ciudad {
     @OneToMany(mappedBy = "ciudadDestino", cascade = CascadeType.ALL)
     private List<Ruta> rutasLlegada;
 
+    @OneToMany(mappedBy = "ciudad")
+    private List<ProductoCiudad> productoCiudades = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ciudad")
+    private List<ServicioCiudad> servicioCiudades = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ciudad")
+    private List<CaravanaCompra> caravanaCompra = new ArrayList<>();
+
     public Ciudad() {}
 
-    @SuppressWarnings("deprecation")
-    public Ciudad(String nombre, BigDecimal impuestos) {
+    
+    public Ciudad(String nombre, Integer impuestos) {
         this.nombre = nombre;
-        this.impuestos = impuestos.setScale(2, BigDecimal.ROUND_HALF_UP);
+        this.impuestos = impuestos;
     }
 
     // Getters y Setters
@@ -47,13 +48,19 @@ public class Ciudad {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public BigDecimal getImpuestos() { return impuestos; }
-    @SuppressWarnings("deprecation")
-    public void setImpuestos(BigDecimal impuestos) { 
-        this.impuestos = impuestos.setScale(2, BigDecimal.ROUND_HALF_UP);
+    public Integer getImpuestos() { return impuestos; }
+    public void setImpuestos(Integer impuestos) { 
+        this.impuestos = impuestos;
     }
 
     public List<Ruta> getRutasSalida() { return rutasSalida; }
+
     public List<Ruta> getRutasLlegada() { return rutasLlegada; }
+
+    public List<ProductoCiudad> getProductoCiudades() { return productoCiudades;}
+
+    public List<ServicioCiudad> getServicioCiudades() { return servicioCiudades; }
+
+    public List<CaravanaCompra> getCaravanaCompra() { return caravanaCompra; }
 
 }

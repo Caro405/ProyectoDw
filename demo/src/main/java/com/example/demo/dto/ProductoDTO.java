@@ -1,17 +1,19 @@
 package com.example.demo.dto;
 
+public class ProductoDTO {
 
-public class CiudadDTO {
     private Long id;
     private String nombre;
-    private Integer impuestos;
+    private String categoria;
 
-    public CiudadDTO() {}
 
-    public CiudadDTO(Long id, String nombre, Integer impuestos) {
+    public ProductoDTO() {}
+
+    public ProductoDTO(Long id, String nombre, String categoria) {
         this.id = id;
         this.nombre = nombre;
-        this.impuestos = impuestos;
+        this.categoria = categoria;
+
     }
 
     public Long getId() { return id; }
@@ -20,7 +22,7 @@ public class CiudadDTO {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public Integer getImpuestos() { return impuestos; }
-    public void setImpuestos(Integer impuestos) { this.impuestos = impuestos;}
-    
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
+
 }

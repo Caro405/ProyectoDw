@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 
 @Component
 public class DbInitializer implements CommandLineRunner {
-
+/*
     @Autowired
     private CiudadRepository ciudadRepository;
 
@@ -151,4 +151,5 @@ public class DbInitializer implements CommandLineRunner {
                 .setScale(2, RoundingMode.HALF_UP)
                 .doubleValue();
     }
+ */
 }

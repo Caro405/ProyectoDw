@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+//import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Jugador {
@@ -13,18 +14,14 @@ public class Jugador {
     private Long id;
 
     private String nombre;
-    private String rol;
 
     //Constructores
     public Jugador() {
     }
 
-    public Jugador(String nombre, String rol) {
+    public Jugador(String nombre) {
         this.nombre = nombre;
-        this.rol = rol;
     }
-
-    // Setters y getters
 
     public Long getId() {
         return id;
@@ -41,17 +38,5 @@ public class Jugador {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    
-    
-
 
 }

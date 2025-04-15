@@ -1,39 +1,26 @@
-package com.example.demo.Model;
+package com.example.demo.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+public class ServicioDTO {
 
-@Entity
-public class Servicio {
-//ver si es necesaria la asociacion directa con ciudad
-    @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
-
     private String nombreservicio;
     private Integer precio;
     private Integer porcentajeEfecto;
+    private Long ciudadId; // El ID de la ciudad asociada al servicio
 
-    @ManyToOne
-    private Ciudad ciudad;
+    // Constructor por defecto
+    public ServicioDTO() {}
 
-    // Constructores
-
-    public Servicio() {}
-
-    public Servicio(String nombreservicio, Integer precio, Integer porcentajeEfecto, Ciudad ciudad) {
-        
+    // Constructor con parámetros
+    public ServicioDTO(Long id, String nombreservicio, Integer precio, Integer porcentajeEfecto, Long ciudadId) {
+        this.id = id;
         this.nombreservicio = nombreservicio;
         this.precio = precio;
         this.porcentajeEfecto = porcentajeEfecto;
-        this.ciudad = ciudad;
+        this.ciudadId = ciudadId;
     }
 
-    // Setters y getters
-
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -41,7 +28,7 @@ public class Servicio {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getNombreservicio() {
         return nombreservicio;
     }
@@ -66,10 +53,11 @@ public class Servicio {
         this.porcentajeEfecto = porcentajeEfecto;
     }
 
-    //
-
-    public Ciudad getCiudad() {
-        return ciudad;
+    public Long getCiudadId() {
+        return ciudadId;
     }
 
+    public void setCiudadId(Long ciudadId) {
+        this.ciudadId = ciudadId;
+    }
 }
