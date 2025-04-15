@@ -22,16 +22,19 @@ public class RutaService {
     @Autowired
     private CiudadRepository ciudadRepository;
 
+    // Listar todas las rutas
     public List<RutaDTO> listarRutas() {
         return rutaRepository.findAll().stream()
                 .map(RutaMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
+    // Obtener una ruta por su ID
     public Optional<RutaDTO> obtenerRutaPorId(Long id) {
         return rutaRepository.findById(id).map(RutaMapper::toDTO);
     }
 
+    // Guardar una nueva ruta
     public void guardarRuta(RutaDTO rutaDTO) {
         Ciudad ciudadOrigen = ciudadRepository.findById(rutaDTO.getCiudadOrigenId()).orElseThrow();
         Ciudad ciudadDestino = ciudadRepository.findById(rutaDTO.getCiudadDestinoId()).orElseThrow();
@@ -39,6 +42,7 @@ public class RutaService {
         rutaRepository.save(ruta);
     }
 
+    // Eliminar una ruta por su ID
     public void eliminarRuta(Long id) {
         rutaRepository.deleteById(id);
     }
