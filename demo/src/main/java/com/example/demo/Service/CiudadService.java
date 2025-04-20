@@ -2,7 +2,6 @@ package com.example.demo.Service;
 
 import com.example.demo.dto.CiudadDTO;
 import com.example.demo.Mapper.CiudadMapper;
-//import com.example.demo.Model.Ciudad;
 import com.example.demo.Repository.CiudadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,12 @@ public class CiudadService {
                 .map(CiudadMapper::toDTO);
     }
 
-    public void guardarCiudad(CiudadDTO ciudadDTO) {
-        ciudadRepository.save(CiudadMapper.toEntity(ciudadDTO));
+    public CiudadDTO guardarCiudad(CiudadDTO ciudadDTO) {
+        var entidad = CiudadMapper.toEntity(ciudadDTO);          // convierte el DTO en entidad
+        var guardada = ciudadRepository.save(entidad);           // guarda y devuelve la entidad con ID generado
+        return CiudadMapper.toDTO(guardada);                     // convierte de nuevo a DTO
     }
+    
 
     public void eliminarCiudad(Long id) {
         ciudadRepository.deleteById(id);
