@@ -8,32 +8,28 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Servicio {
-//ver si es necesaria la asociacion directa con ciudad
-    @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private Long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     private String nombreservicio;
     private Integer precio;
     private Integer porcentajeEfecto;
 
-    @ManyToOne
-    private Ciudad ciudad;
-
-    // Constructores
+    @ManyToOne  // Asumiendo que un servicio está asociado a una ciudad
+    private Ciudad ciudad; // Relación con la clase Ciudad
 
     public Servicio() {}
 
     public Servicio(String nombreservicio, Integer precio, Integer porcentajeEfecto, Ciudad ciudad) {
-        
         this.nombreservicio = nombreservicio;
         this.precio = precio;
         this.porcentajeEfecto = porcentajeEfecto;
         this.ciudad = ciudad;
     }
 
-    // Setters y getters
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -41,7 +37,7 @@ public class Servicio {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getNombreservicio() {
         return nombreservicio;
     }
@@ -66,10 +62,11 @@ public class Servicio {
         this.porcentajeEfecto = porcentajeEfecto;
     }
 
-    //
-
     public Ciudad getCiudad() {
         return ciudad;
     }
 
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
 }

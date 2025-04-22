@@ -2,6 +2,8 @@ package com.example.demo.Mapper;
 
 import com.example.demo.dto.CiudadDTO;
 import com.example.demo.Model.Ciudad;
+import com.example.demo.Model.Jugador;
+
 
 public class CiudadMapper {
 

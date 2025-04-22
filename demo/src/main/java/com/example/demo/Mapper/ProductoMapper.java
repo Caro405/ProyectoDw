@@ -2,6 +2,8 @@ package com.example.demo.Mapper;
 
 import com.example.demo.dto.ProductoDTO;
 import com.example.demo.Model.Producto;
+import com.example.demo.Model.Jugador;
+
 
 public class ProductoMapper {
 

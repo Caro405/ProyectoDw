@@ -4,36 +4,30 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 public class SesionJuego {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
-    private Integer oro_maximo;
-    private Date fecha_inicio;
-    private Date fecha_fin;
-
-    @OneToMany(mappedBy = "sesionJuego")
-    private List<JugadoresSesion> jugadores;
+    private Integer oro_maximo;  // Asegúrate de que este campo exista
+    private LocalDate fecha_inicio;
+    private LocalDate fecha_fin;
 
     public SesionJuego() {}
 
-    public SesionJuego(String nombre, Integer oro_maximo, Date fecha_inicio, Date fecha_fin) {
+    public SesionJuego(String nombre, Integer oro_maximo, LocalDate fecha_inicio, LocalDate fecha_fin) {
         this.nombre = nombre;
         this.oro_maximo = oro_maximo;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -58,27 +52,19 @@ public class SesionJuego {
         this.oro_maximo = oro_maximo;
     }
 
-    public Date getFecha_inicio() {
+    public LocalDate getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(Date fecha_inicio) {
+    public void setFecha_inicio(LocalDate fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public Date getFecha_fin() {
+    public LocalDate getFecha_fin() {
         return fecha_fin;
     }
 
-    public void setFecha_fin(Date fecha_fin) {
+    public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
-    }
-
-    public List<JugadoresSesion> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(List<JugadoresSesion> jugadores) {
-        this.jugadores = jugadores;
     }
 }

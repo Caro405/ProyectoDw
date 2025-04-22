@@ -4,9 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
-import java.util.List;
 
 @Entity
 public class Jugador {
@@ -16,9 +13,6 @@ public class Jugador {
     private Long id;
 
     private String nombre;
-
-    @OneToMany(mappedBy = "jugador")
-    private List<JugadoresSesion> sesiones;
 
     public Jugador() {}
 
@@ -41,13 +35,5 @@ public class Jugador {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public List<JugadoresSesion> getSesiones() {
-        return sesiones;
-    }
-
-    public void setSesiones(List<JugadoresSesion> sesiones) {
-        this.sesiones = sesiones;
     }
 }

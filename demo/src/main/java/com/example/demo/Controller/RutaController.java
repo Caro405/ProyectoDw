@@ -1,15 +1,16 @@
 package com.example.demo.Controller;
 
-import com.example.demo.dto.RutaDTO;
-import com.example.demo.Service.RutaService;
-import com.example.demo.Service.CiudadService;
+import com.example.demo.Service.RutaService;  // Importar RutaService
+import com.example.demo.Service.CiudadService;  // Importar CiudadService
+import com.example.demo.dto.RutaDTO;  // Importar RutaDTO
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.stereotype.Controller;  // Asegúrate de tener esta importación
+import org.springframework.web.bind.annotation.*;  // Asegúrate de importar las anotaciones adecuadas
+import org.springframework.web.servlet.ModelAndView;  // Importar ModelAndView
 
-import java.util.List;
-import java.util.Optional;
+// Asegúrate de importar estas clases
+import java.util.List;  // Importar List correctamente
+import java.util.Optional;  // Importar Optional correctamente
 
 @Controller
 @RequestMapping("/ruta")
@@ -21,12 +22,14 @@ public class RutaController {
     @Autowired
     private CiudadService ciudadService;
 
+    // Listar rutas
     @GetMapping("/list")
     public ModelAndView listarRutas() {
         List<RutaDTO> rutas = rutaService.listarRutas();
         return new ModelAndView("ruta-list").addObject("listaRutas", rutas);
     }
 
+    // Formulario para crear una ruta
     @GetMapping("/create")
     public ModelAndView formularioCrearRuta() {
         return new ModelAndView("ruta-edit")
@@ -34,19 +37,21 @@ public class RutaController {
                 .addObject("listaCiudades", ciudadService.listarCiudades());
     }
 
+    // Guardar ruta
     @PostMapping("/save")
     public String guardarRuta(@ModelAttribute RutaDTO rutaDTO) {
-        rutaService.guardarRuta(rutaDTO);
-        return "redirect:/ruta/list";
+        rutaService.guardarRuta(rutaDTO);  
+        return "redirect:/ruta/list";  
     }
 
+    // Eliminar ruta
     @GetMapping("/delete/{id}")
     public String borrarRuta(@PathVariable Long id) {
-        rutaService.eliminarRuta(id);
-        return "redirect:/ruta/list";
+        rutaService.eliminarRuta(id); 
+        return "redirect:/ruta/list"; 
     }
 
-    // 🔹 Ver detalles de una ruta
+    // Ver detalles de una ruta
     @GetMapping("/view/{id}")
     public ModelAndView verRuta(@PathVariable Long id) {
         Optional<RutaDTO> rutaDTO = rutaService.obtenerRutaPorId(id);
@@ -56,7 +61,7 @@ public class RutaController {
         return new ModelAndView("ruta-view").addObject("ruta", rutaDTO.get());
     }
 
-    // 🔹 Formulario para editar una ruta
+    // Formulario para editar una ruta
     @GetMapping("/edit/{id}")
     public ModelAndView formularioEditarRuta(@PathVariable Long id) {
         Optional<RutaDTO> rutaDTO = rutaService.obtenerRutaPorId(id);

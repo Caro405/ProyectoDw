@@ -1,13 +1,10 @@
 package com.example.demo.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Caravana {
@@ -25,19 +22,12 @@ public class Caravana {
     private Integer puntosVidaMax;
     private boolean guardias;
 
-    @OneToMany (mappedBy = "caravana")
-    private List<Jugador> jugadores = new ArrayList<>();
-
-    @OneToMany(mappedBy = "caravana")
-    private List<Inventario> inventario = new ArrayList<>();
-
-    @OneToMany(mappedBy = "caravana")
-    private List<ServicioCaravana> serviciosComprados = new ArrayList<>();
-
+    // Constructor sin parámetros
     public Caravana() {}
 
+    // Constructor con todos los parámetros
     public Caravana(String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero,
-            Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias) {
+                    Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias) {
         this.nombre = nombre;
         this.velocidad = velocidad;
         this.cargaActual = cargaActual;
@@ -48,6 +38,7 @@ public class Caravana {
         this.guardias = guardias;
     }
 
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -119,30 +110,4 @@ public class Caravana {
     public void setGuardias(boolean guardias) {
         this.guardias = guardias;
     }
-
-    public List<Jugador> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }
-
-    public List<Inventario> getInventario() {
-        return inventario;
-    }
-
-    public void setInventario(List<Inventario> inventario) {
-        this.inventario = inventario;
-    }
-
-    public List<ServicioCaravana> getServiciosComprados() {
-        return serviciosComprados;
-    }
-
-    public void setServiciosComprados(List<ServicioCaravana> serviciosComprados) {
-        this.serviciosComprados = serviciosComprados;
-    }
-
-
 }

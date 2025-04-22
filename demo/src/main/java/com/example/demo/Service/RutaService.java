@@ -8,6 +8,13 @@ import com.example.demo.Repository.CiudadRepository;
 import com.example.demo.Repository.RutaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.demo.Service.JugadorService;
+import com.example.demo.Service.ProductoService;
+import com.example.demo.Service.CiudadService;
+import com.example.demo.Service.RutaService;
+import com.example.demo.Service.ServicioService;
+import com.example.demo.Model.Jugador;
+
 
 import java.util.List;
 import java.util.Optional;

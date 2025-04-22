@@ -1,32 +1,36 @@
-package com.example.demo.Mapper;
+package com.example.demo.mapper;
 
 import com.example.demo.Model.Jugador;
 import com.example.demo.dto.JugadorDTO;
-import org.springframework.stereotype.Component;
 
-@Component
 public class JugadorMapper {
 
     // Convertir de Jugador a JugadorDTO
-    public JugadorDTO jugadorToJugadorDTO(Jugador jugador) {
+    public static JugadorDTO toDTO(Jugador jugador) {
         if (jugador == null) {
             return null;
         }
+        // Suponiendo que el jugador tiene una sesión de juego asignada
+        Long sesionJuegoId = null; // Si tienes la lógica para obtener el id de la sesión de juego
+        // Aquí sería ideal agregar la lógica que extrae el sesionJuegoId, si corresponde
 
         return new JugadorDTO(
             jugador.getId(),
             jugador.getNombre(),
-            // Aquí puedes agregar la relación con la sesión si es necesario
-            jugador.getSesiones() != null && !jugador.getSesiones().isEmpty() ? jugador.getSesiones().get(0).getSesionJuego().getId() : null
+            sesionJuegoId // Pasar el sesionJuegoId desde la entidad Jugador
         );
     }
 
     // Convertir de JugadorDTO a Jugador
-    public Jugador jugadorDTOToJugador(JugadorDTO jugadorDTO) {
+    public static Jugador toEntity(JugadorDTO jugadorDTO) {
         if (jugadorDTO == null) {
             return null;
         }
-
-        return new Jugador(jugadorDTO.getNombre());
+        Jugador jugador = new Jugador();
+        jugador.setId(jugadorDTO.getId());
+        jugador.setNombre(jugadorDTO.getNombre());
+        // Si se necesita asignar sesionJuegoId, se agrega la lógica aquí
+        // Por ejemplo, si tienes un método para asignar la sesión de juego, lo agregas aquí
+        return jugador;
     }
 }

@@ -1,7 +1,15 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.*;
-//import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import com.example.demo.Model.Jugador;
+
 
 @Entity
 public class Producto {
@@ -15,9 +23,9 @@ public class Producto {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    private double precioBase;
-    private double factorOferta;
-    private double factorDemanda;
+    private Integer precioBase;
+    private Integer factorOferta;
+    private Integer factorDemanda;
 
     @ManyToOne
     @JoinColumn(name = "ciudad_id")
@@ -35,7 +43,7 @@ public class Producto {
     // Constructores
     public Producto() {}
 
-    public Producto(String nombre, Categoria categoria, double precioBase, double factorOferta, double factorDemanda, Ciudad ciudad) {
+    public Producto(String nombre, Categoria categoria, Integer precioBase, Integer factorOferta, Integer factorDemanda, Ciudad ciudad) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.precioBase = precioBase;
@@ -54,14 +62,14 @@ public class Producto {
     public Categoria getCategoria() { return categoria; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 
-    public double getPrecioBase() { return precioBase; }
-    public void setPrecioBase(double precioBase) { this.precioBase = precioBase; }
+    public Integer getPrecioBase() { return precioBase; }
+    public void setPrecioBase(Integer precioBase) { this.precioBase = precioBase; }
 
-    public double getFactorOferta() { return factorOferta; }
-    public void setFactorOferta(double factorOferta) { this.factorOferta = factorOferta; }
+    public Integer getFactorOferta() { return factorOferta; }
+    public void setFactorOferta(Integer factorOferta) { this.factorOferta = factorOferta; }
 
-    public double getFactorDemanda() { return factorDemanda; }
-    public void setFactorDemanda(double factorDemanda) { this.factorDemanda = factorDemanda; }
+    public Integer getFactorDemanda() { return factorDemanda; }
+    public void setFactorDemanda(Integer factorDemanda) { this.factorDemanda = factorDemanda; }
 
     public Ciudad getCiudad() { return ciudad; }
     public void setCiudad(Ciudad ciudad) { this.ciudad = ciudad; }

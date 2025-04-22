@@ -1,10 +1,16 @@
 package com.example.demo.dto;
 
+import com.example.demo.dto.JugadorDTO;
+import com.example.demo.dto.ProductoDTO;
+import com.example.demo.dto.CiudadDTO;
+import com.example.demo.Model.Jugador;
+import com.example.demo.dto.ServicioDTO;
+
 public class JugadorDTO {
 
     private Long id;
     private String nombre;
-    private Long sesionJuegoId; // Para mantener relación con la sesión
+    private Long sesionJuegoId; 
 
     public JugadorDTO() {}
 

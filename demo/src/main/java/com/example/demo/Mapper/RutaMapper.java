@@ -3,6 +3,8 @@ package com.example.demo.Mapper;
 import com.example.demo.dto.RutaDTO;
 import com.example.demo.Model.Ciudad;
 import com.example.demo.Model.Ruta;
+import com.example.demo.Model.Jugador;
+
 
 public class RutaMapper {
     public static RutaDTO toDTO(Ruta ruta) {

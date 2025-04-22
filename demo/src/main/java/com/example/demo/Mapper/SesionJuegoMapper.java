@@ -4,6 +4,8 @@ import com.example.demo.Model.SesionJuego;
 import com.example.demo.dto.SesionJuegoDTO;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+
 @Component
 public class SesionJuegoMapper {
 
@@ -13,12 +15,16 @@ public class SesionJuegoMapper {
             return null;
         }
 
+        // Convertimos LocalDate a java.sql.Date
+        Date fechaInicio = Date.valueOf(sesionJuego.getFecha_inicio());
+        Date fechaFin = Date.valueOf(sesionJuego.getFecha_fin());
+
         return new SesionJuegoDTO(
             sesionJuego.getId(),
             sesionJuego.getNombre(),
             sesionJuego.getOro_maximo(),
-            sesionJuego.getFecha_inicio(),
-            sesionJuego.getFecha_fin()
+            fechaInicio,  // Pasamos java.sql.Date
+            fechaFin      // Pasamos java.sql.Date
         );
     }
 
@@ -28,11 +34,15 @@ public class SesionJuegoMapper {
             return null;
         }
 
+        // Convertimos java.sql.Date a LocalDate
+        java.time.LocalDate fechaInicio = sesionJuegoDTO.getFecha_inicio().toLocalDate();
+        java.time.LocalDate fechaFin = sesionJuegoDTO.getFecha_fin().toLocalDate();
+
         return new SesionJuego(
             sesionJuegoDTO.getNombre(),
             sesionJuegoDTO.getOro_maximo(),
-            sesionJuegoDTO.getFecha_inicio(),
-            sesionJuegoDTO.getFecha_fin()
+            fechaInicio,  // Usamos LocalDate
+            fechaFin      // Usamos LocalDate
         );
     }
 }
