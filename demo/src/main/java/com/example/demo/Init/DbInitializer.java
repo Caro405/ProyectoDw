@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 import com.example.demo.Repository.*;
 import com.example.demo.Model.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -15,10 +13,12 @@ import java.util.stream.IntStream;
 
 @Component
 public class DbInitializer implements CommandLineRunner {
-/*
+
     @Autowired
     private CiudadRepository ciudadRepository;
 
+    private final Random random = new Random();
+/*
     @Autowired
     private RutaRepository rutaRepository;
 
@@ -32,6 +32,7 @@ public class DbInitializer implements CommandLineRunner {
     private ProductoRepository productoRepository;
 
     private final Random random = new Random();
+    */
 
     @Override
     public void run(String... args) throws Exception {
@@ -47,7 +48,8 @@ public class DbInitializer implements CommandLineRunner {
 
         ciudadRepository.saveAll(ciudades);
         System.out.println(" 100 ciudades creadas.");
-
+    }
+        /* 
         // Crear 30 rutas entre ciudades existentes
         for (int i = 0; i < 30; i++) {
             Ciudad ciudadOrigen = getRandomCiudad(ciudades);
@@ -151,5 +153,10 @@ public class DbInitializer implements CommandLineRunner {
                 .setScale(2, RoundingMode.HALF_UP)
                 .doubleValue();
     }
- */
+                */
+
+                private Integer generarImpuestosAleatorios() {
+                        return random.nextInt(951) + 50;  
+                    }
+        
 }

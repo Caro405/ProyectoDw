@@ -1,6 +1,5 @@
 package com.example.demo.dto;
 
-import java.math.BigDecimal;
 
 public class CiudadDTO {
     private Long id;
@@ -9,11 +8,9 @@ public class CiudadDTO {
 
     public CiudadDTO() {}
 
-    @SuppressWarnings("deprecation")
-    public CiudadDTO(Long id, String nombre, BigDecimal impuestos) {
-        this.id = id;
+    public CiudadDTO( String nombre, Integer impuestos) {
         this.nombre = nombre;
-        this.impuestos = impuestos.setScale(2, BigDecimal.ROUND_HALF_UP);
+        this.impuestos = impuestos;
     }
 
     public Long getId() {
@@ -31,10 +28,12 @@ public class CiudadDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
 
-    public BigDecimal getImpuestos() { return impuestos; }
-    @SuppressWarnings("deprecation")
-    public void setImpuestos(BigDecimal impuestos) { 
-        this.impuestos = impuestos.setScale(2, BigDecimal.ROUND_HALF_UP);
-    }
+    
+    public Integer getImpuestos() { return impuestos; }
+    public void setImpuestos(Integer impuestos) { this.impuestos = impuestos;}
+
+   
+    
 }

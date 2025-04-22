@@ -17,6 +17,8 @@ public class Ciudad {
 
     private String nombre;
 
+    private Integer impuestos;
+
     @OneToMany(mappedBy = "ciudad")
     private List<Ruta> rutas;
 
@@ -25,8 +27,9 @@ public class Ciudad {
 
     public Ciudad() {}
 
-    public Ciudad(String nombre) {
+    public Ciudad(String nombre, Integer impuestos) {
         this.nombre = nombre;
+        this.impuestos = impuestos;
     }
 
     // Getters and Setters
@@ -46,6 +49,8 @@ public class Ciudad {
         this.nombre = nombre;
     }
 
+    
+
     public List<Ruta> getRutas() {
         return rutas;
     }
@@ -61,4 +66,14 @@ public class Ciudad {
     public void setServicios(List<Servicio> servicios) {
         this.servicios = servicios;
     }
+
+    public Integer getImpuestos() {
+        return impuestos;
+    }
+
+    public void setImpuestos(Integer impuestos) {
+        this.impuestos = impuestos;
+    }
+
+
 }

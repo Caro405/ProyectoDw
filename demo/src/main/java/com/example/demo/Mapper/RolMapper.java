@@ -31,6 +31,6 @@ public class RolMapper {
         JugadoresSesion jugadoresSesion = new JugadoresSesion();
         jugadoresSesion.setId(rolDTO.getJugadoresSesionId());
 
-        return new Rol(rolDTO.getRol(), jugadoresSesion);
+        return new Rol(rolDTO.getRol());
     }
 }
