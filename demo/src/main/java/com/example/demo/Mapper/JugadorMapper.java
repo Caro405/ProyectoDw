@@ -10,10 +10,7 @@ public class JugadorMapper {
         if (jugador == null) {
             return null;
         }
-        // Suponiendo que el jugador tiene una sesión de juego asignada
-        Long sesionJuegoId = null; // Si tienes la lógica para obtener el id de la sesión de juego
-        // Aquí sería ideal agregar la lógica que extrae el sesionJuegoId, si corresponde
-
+        Long sesionJuegoId = null; 
         return new JugadorDTO(
             jugador.getId(),
             jugador.getNombre(),

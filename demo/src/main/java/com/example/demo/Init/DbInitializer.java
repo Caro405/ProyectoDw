@@ -35,7 +35,7 @@ public class DbInitializer implements CommandLineRunner {
         List<Ciudad> ciudades = IntStream.rangeClosed(1, 100)
                 .mapToObj(i -> new Ciudad(
                         "Ciudad " + i,
-                        generarImpuestosAleatorios()  // Llama al generador de impuestos aleatorios
+                        generarImpuestosAleatorios()  
                 ))
                 .collect(Collectors.toList());
 

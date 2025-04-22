@@ -4,19 +4,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Ciudad {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Auto-generación del ID
+    @GeneratedValue(strategy = GenerationType.AUTO)  
     private Long id;
+    
     private String nombre;
     private Integer impuestos;
 
+    // Relaciones
+    @OneToMany(mappedBy = "ciudadOrigen")
+    private List<Ruta> rutasSalida;
+
+    @OneToMany(mappedBy = "ciudadDestino")
+    private List<Ruta> rutasLlegada;
+
     public Ciudad() {}
 
-    // Constructor adecuado
     public Ciudad(String nombre, Integer impuestos) {
         this.nombre = nombre;
         this.impuestos = impuestos;
@@ -45,5 +54,21 @@ public class Ciudad {
 
     public void setImpuestos(Integer impuestos) {
         this.impuestos = impuestos;
+    }
+
+    public List<Ruta> getRutasSalida() {
+        return rutasSalida;
+    }
+
+    public void setRutasSalida(List<Ruta> rutasSalida) {
+        this.rutasSalida = rutasSalida;
+    }
+
+    public List<Ruta> getRutasLlegada() {
+        return rutasLlegada;
+    }
+
+    public void setRutasLlegada(List<Ruta> rutasLlegada) {
+        this.rutasLlegada = rutasLlegada;
     }
 }

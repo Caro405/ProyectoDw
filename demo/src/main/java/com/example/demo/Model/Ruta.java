@@ -4,25 +4,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Ruta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Integer distancia;
     private boolean esSegura;
     private Integer ataque;
     private String causaAtaque;
+
+    @ManyToOne
     private Ciudad ciudadOrigen;
+
+    @ManyToOne
     private Ciudad ciudadDestino;
 
-    // Constructor sin argumentos (para JPA)
     public Ruta() {}
 
-    // Constructor con parámetros
     public Ruta(Integer distancia, boolean esSegura, Integer ataque, String causaAtaque) {
         this.distancia = distancia;
         this.esSegura = esSegura;
@@ -30,7 +33,7 @@ public class Ruta {
         this.causaAtaque = causaAtaque;
     }
 
-    // Getters y setters
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -87,3 +90,4 @@ public class Ruta {
         this.ciudadDestino = ciudadDestino;
     }
 }
+ 
