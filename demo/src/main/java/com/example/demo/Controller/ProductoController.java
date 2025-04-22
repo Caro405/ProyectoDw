@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.Service.CiudadService;
-import com.example.demo.Service.ProductoService;
-import com.example.demo.Model.Jugador;
-import java.util.List; // Agregar importación de List
-import java.util.Optional; // Agregar importación de Optional
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/producto")
@@ -32,8 +30,9 @@ public class ProductoController {
     // Formulario para crear un producto
     @GetMapping("/create")
     public ModelAndView formularioCrearProducto() {
+        // Usar valores predeterminados para crear un ProductoDTO
         return new ModelAndView("producto-edit")
-                .addObject("producto", new ProductoDTO())
+                .addObject("producto", new ProductoDTO(0L, "", "", 0))  // Valores predeterminados
                 .addObject("listaCiudades", ciudadService.listarCiudades());
     }
 

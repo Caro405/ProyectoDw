@@ -1,15 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.dto.JugadorDTO;
-import com.example.demo.dto.ProductoDTO;
-import com.example.demo.dto.CiudadDTO;
-import com.example.demo.dto.ServicioDTO;
-
-import com.example.demo.Model.Jugador;
-import com.example.demo.Model.Producto;
-import com.example.demo.Model.Ciudad;
-import com.example.demo.Model.Servicio;
-
 public class RutaDTO {
 
     private Long id;
@@ -29,14 +19,15 @@ public class RutaDTO {
         this.id = id;
         this.distancia = distancia;
         this.esSegura = esSegura;
-        this.ataque = esSegura ? 0 : ataque; 
-        this.causaAtaque = esSegura ? null : causaAtaque;
+        this.ataque = esSegura ? 0 : ataque;  // Si la ruta es segura, no hay ataque
+        this.causaAtaque = esSegura ? null : causaAtaque;  // Si es segura, no hay causa de ataque
         this.ciudadOrigenId = ciudadOrigenId;
         this.ciudadDestinoId = ciudadDestinoId;
         this.ciudadOrigenNombre = ciudadOrigenNombre;
         this.ciudadDestinoNombre = ciudadDestinoNombre;
     }
 
+    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -1,38 +1,52 @@
 package com.example.demo.dto;
-
-import com.example.demo.dto.JugadorDTO;
 import com.example.demo.dto.ProductoDTO;
-import com.example.demo.dto.CiudadDTO;
-import com.example.demo.dto.ServicioDTO;
 
-import com.example.demo.Model.Jugador;
-import com.example.demo.Model.Producto;
-import com.example.demo.Model.Ciudad;
-import com.example.demo.Model.Servicio;
 
 public class ProductoDTO {
 
     private Long id;
     private String nombre;
     private String categoria;
+    private Integer precioBase;
 
-
-    public ProductoDTO() {}
-
-    public ProductoDTO(Long id, String nombre, String categoria) {
+    // Constructor
+    public ProductoDTO(Long id, String nombre, String categoria, Integer precioBase) {
         this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
-
+        this.precioBase = precioBase;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public Integer getPrecioBase() {
+        return precioBase;
+    }
+
+    public void setPrecioBase(Integer precioBase) {
+        this.precioBase = precioBase;
+    }
 }

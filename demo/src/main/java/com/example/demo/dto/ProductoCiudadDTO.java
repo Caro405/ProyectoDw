@@ -1,34 +1,22 @@
-package com.example.demo.Model;
+package com.example.demo.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.example.demo.Model.Producto;
+import com.example.demo.Model.Ciudad;
 
-@Entity
-public class ProductoCiudad {
+public class ProductoCiudadDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Integer precio;
     private Integer factorDemanda;
     private Integer factorOferta;
     private Integer stock;
-
-    @ManyToOne
     private Producto producto;
-
-    @ManyToOne
     private Ciudad ciudad;
 
     // Constructores, getters y setters
+    public ProductoCiudadDTO() {}
 
-    public ProductoCiudad() {}
-
-    public ProductoCiudad(Integer precio, Integer factorDemanda, Integer factorOferta, Integer stock, Producto producto, Ciudad ciudad) {
+    public ProductoCiudadDTO(Integer precio, Integer factorDemanda, Integer factorOferta, Integer stock, Producto producto, Ciudad ciudad) {
         this.precio = precio;
         this.factorDemanda = factorDemanda;
         this.factorOferta = factorOferta;
@@ -37,8 +25,7 @@ public class ProductoCiudad {
         this.ciudad = ciudad;
     }
 
-    // Getters y Setters
-
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -93,5 +80,5 @@ public class ProductoCiudad {
 
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
-    }
+    } 
 }

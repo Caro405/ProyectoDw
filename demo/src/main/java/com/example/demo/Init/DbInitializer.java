@@ -42,32 +42,43 @@ public class DbInitializer implements CommandLineRunner {
         ciudadRepository.saveAll(ciudades);
         System.out.println("100 ciudades creadas.");
 
-        // Crear 30 rutas entre ciudades existentes
-        for (int i = 0; i < 30; i++) {
-            Ciudad ciudadOrigen = getRandomCiudad(ciudades);
-            Ciudad ciudadDestino = getRandomCiudad(ciudades);
+        // Crear '0' rutas entre ciudades existentes
+        for (Ciudad ciudad : ciudades) {
+            // Verifica si la ciudad tiene rutas
+            if (ciudad.getRutasSalida().isEmpty() && ciudad.getRutasLlegada().isEmpty()) {
+                // Si no tiene rutas, crear dos rutas: una segura y otra insegura
+                Ciudad ciudadDestino1 = getRandomCiudad(ciudades);
+                Ciudad ciudadDestino2 = getRandomCiudad(ciudades);
+                
+                while (ciudadDestino1.equals(ciudadDestino2)) {
+                    ciudadDestino2 = getRandomCiudad(ciudades); // Evitar que la ciudad destino sea la misma
+                }
 
-            // Evitar rutas de una ciudad a sí misma
-            while (ciudadOrigen.equals(ciudadDestino)) {
-                ciudadDestino = getRandomCiudad(ciudades);
+                // Crear una ruta segura
+                Ruta rutaSegura = new Ruta(
+                        random.nextInt(991) + 10,  // Distancia aleatoria entre 10 y 1000
+                        true,                       // Ruta segura
+                        0,                          // No hay ataque
+                        null                        // No hay causa de ataque
+                );
+                rutaSegura.setCiudadOrigen(ciudad);
+                rutaSegura.setCiudadDestino(ciudadDestino1);
+                rutaRepository.save(rutaSegura);  // Guarda la ruta segura en el repositorio
+
+                // Crear una ruta insegura
+                Ruta rutaInsegura = new Ruta(
+                        random.nextInt(991) + 10,  // Distancia aleatoria entre 10 y 1000
+                        false,                      // Ruta insegura
+                        random.nextInt(101),        // Daño aleatorio si no es segura
+                        random.nextBoolean() ? "Bandidos" : "Desastre Natural"  // Causa de ataque aleatoria
+                );
+                rutaInsegura.setCiudadOrigen(ciudad);
+                rutaInsegura.setCiudadDestino(ciudadDestino2);
+                rutaRepository.save(rutaInsegura);  // Guarda la ruta insegura en el repositorio
+
+                System.out.println("Se crearon rutas para la ciudad: " + ciudad.getNombre());
             }
-
-            boolean esSegura = random.nextBoolean();
-            String causaAtaque = esSegura ? null : (random.nextBoolean() ? "Bandidos" : "Desastre Natural");
-
-            Ruta ruta = new Ruta(
-                    random.nextInt(991) + 10,  // Distancia aleatoria entre 10 y 1000
-                    esSegura,                    // Ruta segura o no
-                    esSegura ? 0 : random.nextInt(101), // Daño aleatorio si no es segura
-                    causaAtaque                  // Causa del ataque si no es segura
-            );
-
-            // Asocia las ciudades a la ruta
-            ruta.setCiudadOrigen(ciudadOrigen);
-            ruta.setCiudadDestino(ciudadDestino);
-            rutaRepository.save(ruta);  // Guarda la ruta en el repositorio
         }
-        System.out.println("30 rutas generadas.");
 
         // Crear 10 servicios con efectos específicos
         List<Servicio> servicios = List.of(

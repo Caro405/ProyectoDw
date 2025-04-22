@@ -1715,3 +1715,11 @@ Caused by: java.lang.AssertionError
 	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1893)
 	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:922)
 	... 13 more
+2025-04-22 12:48:32.270250-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]SELCT * RUTA"; se esperaba "SAVEPOINT, SCRIPT, SHUTDOWN"
+Syntax error in SQL statement "[*]SELCT * RUTA"; expected "SAVEPOINT, SCRIPT, SHUTDOWN"; SQL statement:
+SELCT * RUTA [42001-232]
+2025-04-22 12:49:20.725805-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]SELCT  * FROM RUTA"; se esperaba "SAVEPOINT, SCRIPT, SHUTDOWN"
+Syntax error in SQL statement "[*]SELCT  * FROM RUTA"; expected "SAVEPOINT, SCRIPT, SHUTDOWN"; SQL statement:
+SELCT  * FROM RUTA [42001-232]

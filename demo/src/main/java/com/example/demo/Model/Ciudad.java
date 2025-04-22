@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import java.util.ArrayList;
+
 
 @Entity
 public class Ciudad {
@@ -19,10 +21,10 @@ public class Ciudad {
 
     // Relaciones
     @OneToMany(mappedBy = "ciudadOrigen")
-    private List<Ruta> rutasSalida;
+    private List<Ruta> rutasSalida = new ArrayList<>();  // Inicializar la lista de rutasSalida
 
     @OneToMany(mappedBy = "ciudadDestino")
-    private List<Ruta> rutasLlegada;
+    private List<Ruta> rutasLlegada = new ArrayList<>();  // Inicializar la lista de rutasLlegada
 
     public Ciudad() {}
 
