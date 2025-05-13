@@ -20,11 +20,17 @@ public class Ciudad {
     private Integer impuestos;
 
     // Relaciones
+    @OneToMany(mappedBy = "ciudad")
+    private List<Producto> productos;
+
     @OneToMany(mappedBy = "ciudadOrigen")
     private List<Ruta> rutasSalida = new ArrayList<>();  // Inicializar la lista de rutasSalida
 
     @OneToMany(mappedBy = "ciudadDestino")
     private List<Ruta> rutasLlegada = new ArrayList<>();  // Inicializar la lista de rutasLlegada
+
+    @OneToMany(mappedBy = "ciudad")
+    private List<Servicio> servicios;
 
     public Ciudad() {}
 
@@ -32,6 +38,7 @@ public class Ciudad {
         this.nombre = nombre;
         this.impuestos = impuestos;
     }
+
 
     // Getters y Setters
     public Long getId() {
@@ -73,4 +80,21 @@ public class Ciudad {
     public void setRutasLlegada(List<Ruta> rutasLlegada) {
         this.rutasLlegada = rutasLlegada;
     }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public List<Servicio> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<Servicio> servicios) {
+        this.servicios = servicios;
+    }
+
 }

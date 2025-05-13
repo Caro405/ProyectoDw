@@ -1,33 +1,16 @@
-package com.example.demo.mapper;
+package com.example.demo.Mapper;
 
 import com.example.demo.Model.Jugador;
 import com.example.demo.dto.JugadorDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-public class JugadorMapper {
+@Mapper
+public interface JugadorMapper {
 
-    // Convertir de Jugador a JugadorDTO
-    public static JugadorDTO toDTO(Jugador jugador) {
-        if (jugador == null) {
-            return null;
-        }
-        Long sesionJuegoId = null; 
-        return new JugadorDTO(
-            jugador.getId(),
-            jugador.getNombre(),
-            sesionJuegoId // Pasar el sesionJuegoId desde la entidad Jugador
-        );
-    }
+    JugadorMapper INSTANCE = Mappers.getMapper(JugadorMapper.class);
 
-    // Convertir de JugadorDTO a Jugador
-    public static Jugador toEntity(JugadorDTO jugadorDTO) {
-        if (jugadorDTO == null) {
-            return null;
-        }
-        Jugador jugador = new Jugador();
-        jugador.setId(jugadorDTO.getId());
-        jugador.setNombre(jugadorDTO.getNombre());
-        // Si se necesita asignar sesionJuegoId, se agrega la lógica aquí
-        // Por ejemplo, si tienes un método para asignar la sesión de juego, lo agregas aquí
-        return jugador;
-    }
+    JugadorDTO jugadorToJugadorDTO(Jugador jugador);
+
+    Jugador jugadorDTOToJugador(JugadorDTO jugadorDTO);
 }

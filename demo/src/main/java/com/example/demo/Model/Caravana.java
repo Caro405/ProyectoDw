@@ -4,13 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.List;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Caravana {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String nombre;
@@ -22,12 +23,21 @@ public class Caravana {
     private Integer puntosVidaMax;
     private boolean guardias;
 
+    //Relaciones
+
+    @ManyToOne
+    private Jugador jugador;
+
+    @OneToOne(mappedBy = "caravana")
+    private Inventario inventario; 
+
+
     // Constructor sin parámetros
     public Caravana() {}
 
     // Constructor con todos los parámetros
-    public Caravana(String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero,
-                    Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias) {
+     public Caravana(String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero,
+                    Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias, Jugador jugador, Inventario inventario) {
         this.nombre = nombre;
         this.velocidad = velocidad;
         this.cargaActual = cargaActual;
@@ -36,6 +46,8 @@ public class Caravana {
         this.puntosVidaActual = puntosVidaActual;
         this.puntosVidaMax = puntosVidaMax;
         this.guardias = guardias;
+        this.jugador = jugador;
+        this.inventario = inventario;  
     }
 
     // Getters y setters
@@ -110,4 +122,22 @@ public class Caravana {
     public void setGuardias(boolean guardias) {
         this.guardias = guardias;
     }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
+
+    public Inventario getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
+
+    
 }

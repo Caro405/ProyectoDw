@@ -1,36 +1,22 @@
 package com.example.demo.Mapper;
 
-import com.example.demo.dto.CaravanaDTO;
 import com.example.demo.Model.Caravana;
+import com.example.demo.dto.CaravanaDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-public class CaravanaMapper {
+@Mapper
+public interface CaravanaMapper {
 
-    // Convertir de Caravana a CaravanaDTO
-    public static CaravanaDTO toDTO(Caravana caravana) {
-        return new CaravanaDTO(
-            caravana.getId(),
-            caravana.getNombre(),
-            caravana.getVelocidad(),
-            caravana.getCargaActual(),
-            caravana.getCapacidadMaxCarga(),
-            caravana.getDinero(),
-            caravana.getPuntosVidaActual(),
-            caravana.getPuntosVidaMax(),
-            caravana.isGuardias()
-        );
-    }
+    CaravanaMapper INSTANCE = Mappers.getMapper(CaravanaMapper.class);
 
-    // Convertir de CaravanaDTO a Caravana
-    public static Caravana toEntity(CaravanaDTO caravanaDTO) {
-        return new Caravana(
-            caravanaDTO.getNombre(),
-            caravanaDTO.getVelocidad(),
-            caravanaDTO.getCargaActual(),
-            caravanaDTO.getCapacidadMaxCarga(),
-            caravanaDTO.getDinero(),
-            caravanaDTO.getPuntosVidaActual(),
-            caravanaDTO.getPuntosVidaMax(),
-            caravanaDTO.isGuardias()
-        );
-    }
+    @Mapping(source = "inventario", target = "inventarioDTO")
+    @Mapping(source = "jugador", target = "jugadorDTO")
+    CaravanaDTO toDTO(Caravana caravana);
+
+    @Mapping(source = "inventarioDTO", target = "inventario")
+    @Mapping(source = "jugadorDTO", target = "jugador")
+    Caravana toEntity(CaravanaDTO caravanaDTO);
 }
+

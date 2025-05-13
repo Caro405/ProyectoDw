@@ -17,9 +17,8 @@ public class Servicio {
     private Integer precio;
     private Integer porcentajeEfecto;
 
-    @ManyToOne  // Asumiendo que un servicio está asociado a una ciudad
-    private Ciudad ciudad; // Relación con la clase Ciudad
-
+    @ManyToOne 
+    private Ciudad ciudad; 
     public Servicio() {}
 
     public Servicio(String nombreservicio, Integer precio, Integer porcentajeEfecto, Ciudad ciudad) {

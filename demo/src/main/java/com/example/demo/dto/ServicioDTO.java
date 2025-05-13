@@ -6,19 +6,7 @@ public class ServicioDTO {
     private String nombreservicio;
     private Integer precio;
     private Integer porcentajeEfecto;
-    private Long ciudadId; // El ID de la ciudad asociada al servicio
-
-    // Constructor por defecto
-    public ServicioDTO() {}
-
-    // Constructor con parámetros
-    public ServicioDTO(Long id, String nombreservicio, Integer precio, Integer porcentajeEfecto, Long ciudadId) {
-        this.id = id;
-        this.nombreservicio = nombreservicio;
-        this.precio = precio;
-        this.porcentajeEfecto = porcentajeEfecto;
-        this.ciudadId = ciudadId;
-    }
+    private Long ciudadId;  // Relación con Ciudad (solo el ID)
 
     // Getters y Setters
     public Long getId() {

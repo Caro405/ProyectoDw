@@ -9,7 +9,7 @@ public class CiudadDTO {
     private Integer impuestos;
     private List<RutaDTO> rutasSalida;
     private List<RutaDTO> rutasLlegada;
-    private List<ProductoDTO> productos;  // Añadir los productos a la ciudad
+    private List<ProductoDTO> productos;  
 
     public CiudadDTO() {}
 

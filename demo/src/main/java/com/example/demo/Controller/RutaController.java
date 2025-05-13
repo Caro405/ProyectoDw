@@ -1,18 +1,17 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Service.RutaService;  // Importar RutaService
-import com.example.demo.Service.CiudadService;  // Importar CiudadService
-import com.example.demo.dto.RutaDTO;  // Importar RutaDTO
+import com.example.demo.Service.RutaService;  
+import com.example.demo.Service.CiudadService;  
+import com.example.demo.dto.RutaDTO;  
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;  // Asegúrate de tener esta importación
-import org.springframework.web.bind.annotation.*;  // Asegúrate de importar las anotaciones adecuadas
-import org.springframework.web.servlet.ModelAndView;  // Importar ModelAndView
+import org.springframework.web.bind.annotation.*;  
+import org.springframework.web.servlet.ModelAndView;  
 
 // Asegúrate de importar estas clases
 import java.util.List;  // Importar List correctamente
 import java.util.Optional;  // Importar Optional correctamente
 
-@Controller
+@RestController
 @RequestMapping("/ruta")
 public class RutaController {
 
@@ -34,7 +33,7 @@ public class RutaController {
     public ModelAndView formularioCrearRuta() {
         return new ModelAndView("ruta-edit")
                 .addObject("ruta", new RutaDTO())
-                .addObject("listaCiudades", ciudadService.listarCiudades());
+                .addObject("listaCiudades", ciudadService.getAllCiudades());
     }
 
     // Guardar ruta
@@ -70,6 +69,6 @@ public class RutaController {
         }
         return new ModelAndView("ruta-edit")
                 .addObject("ruta", rutaDTO.get())
-                .addObject("listaCiudades", ciudadService.listarCiudades());
+                .addObject("listaCiudades", ciudadService.getAllCiudades());
     }
 }

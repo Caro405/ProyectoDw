@@ -14,7 +14,7 @@ public class SesionJuego {
     private Long id;
 
     private String nombre;
-    private Integer oro_maximo;  // Asegúrate de que este campo exista
+    private Integer oro_maximo;
     private LocalDate fecha_inicio;
     private LocalDate fecha_fin;
 

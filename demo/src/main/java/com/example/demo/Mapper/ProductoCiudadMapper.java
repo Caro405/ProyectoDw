@@ -1,11 +1,11 @@
-package com.example.demo.mapper;
+package com.example.demo.Mapper;
 
 import com.example.demo.Model.ProductoCiudad;
 import com.example.demo.dto.ProductoCiudadDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface ProductoCiudadMapper {
     ProductoCiudadMapper INSTANCE = Mappers.getMapper(ProductoCiudadMapper.class);
 

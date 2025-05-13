@@ -1,48 +1,34 @@
 package com.example.demo.Service;
 
 import com.example.demo.dto.CaravanaDTO;
+import com.example.demo.Model.Caravana;
+import com.example.demo.Model.Inventario;
 import com.example.demo.Mapper.CaravanaMapper;
+import com.example.demo.Mapper.InventarioMapper;
+
 import com.example.demo.Repository.CaravanaRepository;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.Service.JugadorService;
-import com.example.demo.Service.ProductoService;
-import com.example.demo.Service.CiudadService;
-import com.example.demo.Service.RutaService;
-import com.example.demo.Service.ServicioService;
-import com.example.demo.Model.Jugador;
-
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CaravanaService {
 
-    @Autowired
-    private CaravanaRepository caravanaRepository;
+ @Autowired
+private InventarioService inventarioService;
 
-    // Listar todas las caravanas
-    public List<CaravanaDTO> listarCaravanas() {
-        return caravanaRepository.findAll().stream()
-                .map(CaravanaMapper::toDTO)
-                .collect(Collectors.toList());
-    }
+public CaravanaDTO createCaravana(CaravanaDTO caravanaDTO) {
+    Caravana caravana = caravanaMapper.toEntity(caravanaDTO);
 
-    // Obtener una caravana por su ID
-    public Optional<CaravanaDTO> obtenerCaravanaPorId(Long id) {
-        return caravanaRepository.findById(id)
-                .map(CaravanaMapper::toDTO);
-    }
+    // Crear el inventario relacionado
+    Inventario inventario = inventarioMapper.toEntity(caravanaDTO.getInventarioDTO());
+    caravana.setInventario(inventario);
 
-    // Guardar una nueva caravana
-    public void guardarCaravana(CaravanaDTO caravanaDTO) {
-        caravanaRepository.save(CaravanaMapper.toEntity(caravanaDTO));
-    }
+    // Guardar la caravana
+    caravana = caravanaRepository.save(caravana);
 
-    // Eliminar una caravana por su ID
-    public void eliminarCaravana(Long id) {
-        caravanaRepository.deleteById(id);
-    }
+    return caravanaMapper.toDTO(caravana);
+}
+
 }

@@ -1,15 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.dto.JugadorDTO;
-import com.example.demo.dto.ProductoDTO;
-import com.example.demo.dto.CiudadDTO;
-import com.example.demo.dto.ServicioDTO;
-
-import com.example.demo.Model.Jugador;
-import com.example.demo.Model.Producto;
-import com.example.demo.Model.Ciudad;
-import com.example.demo.Model.Servicio;
-
 public class CaravanaDTO {
 
     private Long id;
@@ -22,11 +12,9 @@ public class CaravanaDTO {
     private Integer puntosVidaMax;
     private boolean guardias;
 
-    // Constructor, getters y setters
     public CaravanaDTO() {}
 
-    public CaravanaDTO(Long id, String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero,
-                       Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias) {
+    public CaravanaDTO(Long id, String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero, Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias) {
         this.id = id;
         this.nombre = nombre;
         this.velocidad = velocidad;
@@ -38,31 +26,80 @@ public class CaravanaDTO {
         this.guardias = guardias;
     }
 
-    // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Integer getVelocidad() { return velocidad; }
-    public void setVelocidad(Integer velocidad) { this.velocidad = velocidad; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public Integer getCargaActual() { return cargaActual; }
-    public void setCargaActual(Integer cargaActual) { this.cargaActual = cargaActual; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public Integer getCapacidadMaxCarga() { return capacidadMaxCarga; }
-    public void setCapacidadMaxCarga(Integer capacidadMaxCarga) { this.capacidadMaxCarga = capacidadMaxCarga; }
+    public Integer getVelocidad() {
+        return velocidad;
+    }
 
-    public Integer getDinero() { return dinero; }
-    public void setDinero(Integer dinero) { this.dinero = dinero; }
+    public void setVelocidad(Integer velocidad) {
+        this.velocidad = velocidad;
+    }
 
-    public Integer getPuntosVidaActual() { return puntosVidaActual; }
-    public void setPuntosVidaActual(Integer puntosVidaActual) { this.puntosVidaActual = puntosVidaActual; }
+    public Integer getCargaActual() {
+        return cargaActual;
+    }
 
-    public Integer getPuntosVidaMax() { return puntosVidaMax; }
-    public void setPuntosVidaMax(Integer puntosVidaMax) { this.puntosVidaMax = puntosVidaMax; }
+    public void setCargaActual(Integer cargaActual) {
+        this.cargaActual = cargaActual;
+    }
 
-    public boolean isGuardias() { return guardias; }
-    public void setGuardias(boolean guardias) { this.guardias = guardias; }
+    public Integer getCapacidadMaxCarga() {
+        return capacidadMaxCarga;
+    }
+
+    public void setCapacidadMaxCarga(Integer capacidadMaxCarga) {
+        this.capacidadMaxCarga = capacidadMaxCarga;
+    }
+
+    public Integer getDinero() {
+        return dinero;
+    }
+
+    public void setDinero(Integer dinero) {
+        this.dinero = dinero;
+    }
+
+    public Integer getPuntosVidaActual() {
+        return puntosVidaActual;
+    }
+
+    public void setPuntosVidaActual(Integer puntosVidaActual) {
+        this.puntosVidaActual = puntosVidaActual;
+    }
+
+    public Integer getPuntosVidaMax() {
+        return puntosVidaMax;
+    }
+
+    public void setPuntosVidaMax(Integer puntosVidaMax) {
+        this.puntosVidaMax = puntosVidaMax;
+    }
+
+    public boolean isGuardias() {
+        return guardias;
+    }
+
+    public void setGuardias(boolean guardias) {
+        this.guardias = guardias;
+    }
+
+    public CaravanaDTO getInventarioDTO() {
+        throw new UnsupportedOperationException("Unimplemented method 'getInventarioDTO'");
+    }
 }

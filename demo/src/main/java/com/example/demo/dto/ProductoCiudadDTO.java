@@ -1,8 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.Model.Producto;
-import com.example.demo.Model.Ciudad;
-
 public class ProductoCiudadDTO {
 
     private Long id;
@@ -10,22 +7,10 @@ public class ProductoCiudadDTO {
     private Integer factorDemanda;
     private Integer factorOferta;
     private Integer stock;
-    private Producto producto;
-    private Ciudad ciudad;
+    private Long productoId;  // Relación con Producto (solo el ID)
+    private Long ciudadId;    // Relación con Ciudad (solo el ID)
 
-    // Constructores, getters y setters
-    public ProductoCiudadDTO() {}
-
-    public ProductoCiudadDTO(Integer precio, Integer factorDemanda, Integer factorOferta, Integer stock, Producto producto, Ciudad ciudad) {
-        this.precio = precio;
-        this.factorDemanda = factorDemanda;
-        this.factorOferta = factorOferta;
-        this.stock = stock;
-        this.producto = producto;
-        this.ciudad = ciudad;
-    }
-
-    // Getters y setters
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -66,19 +51,19 @@ public class ProductoCiudadDTO {
         this.stock = stock;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Long getProductoId() {
+        return productoId;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProductoId(Long productoId) {
+        this.productoId = productoId;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
+    public Long getCiudadId() {
+        return ciudadId;
     }
 
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
-    } 
+    public void setCiudadId(Long ciudadId) {
+        this.ciudadId = ciudadId;
+    }
 }

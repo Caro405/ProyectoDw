@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class JugadoresSesion {
+public class JugadorRol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,16 +17,16 @@ public class JugadoresSesion {
     private Jugador jugador;
 
     @ManyToOne
-    private SesionJuego sesionJuego;
+    private Rol rol;
 
-    public JugadoresSesion() {}
+    public JugadorRol() {}
 
-    public JugadoresSesion(Jugador jugador, SesionJuego sesionJuego) {
+    public JugadorRol(Jugador jugador, Rol rol) {
         this.jugador = jugador;
-        this.sesionJuego = sesionJuego;
+        this.rol = rol;
     }
 
-    // Getters and Setters
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -43,11 +43,11 @@ public class JugadoresSesion {
         this.jugador = jugador;
     }
 
-    public SesionJuego getSesionJuego() {
-        return sesionJuego;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setSesionJuego(SesionJuego sesionJuego) {
-        this.sesionJuego = sesionJuego;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

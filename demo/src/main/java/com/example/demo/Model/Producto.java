@@ -4,12 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import com.example.demo.Model.Jugador;
-
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Producto {
@@ -28,7 +25,6 @@ public class Producto {
     private Integer factorDemanda;
 
     @ManyToOne
-    @JoinColumn(name = "ciudad_id")
     private Ciudad ciudad;
 
     // Lista de categorías permitidas
@@ -52,7 +48,7 @@ public class Producto {
         this.ciudad = ciudad;
     }
 
-    // Setters y Getters
+    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -1,10 +1,9 @@
 package com.example.demo.Service;
 
 import com.example.demo.dto.CiudadDTO;
-import com.example.demo.dto.ProductoDTO;
-import com.example.demo.Mapper.CiudadMapper;
+import com.example.demo.Model.Ciudad;
 import com.example.demo.Repository.CiudadRepository;
-import com.example.demo.Repository.ProductoRepository; // Añadir el repositorio de productos
+import com.example.demo.Mapper.CiudadMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,58 +17,46 @@ public class CiudadService {
     @Autowired
     private CiudadRepository ciudadRepository;
 
-    @Autowired
-    private ProductoRepository productoRepository;  // Añadir el repositorio de productos
-
-    // Usar la instancia generada por MapStruct
     private final CiudadMapper ciudadMapper = CiudadMapper.INSTANCE;
 
-    public List<CiudadDTO> listarCiudades() {
-        return ciudadRepository.findAll().stream()
-                .map(ciudad -> {
-                    // Obtener productos de la ciudad y mapearlos a ProductoDTO
-                    List<ProductoDTO> productos = productoRepository.findByCiudadId(ciudad.getId()).stream()
-                            .map(producto -> new ProductoDTO(
-                                    producto.getId(),
-                                    producto.getNombre(),
-                                    producto.getCategoria().toString(),
-                                    producto.getPrecioBase()
-                            ))
-                            .collect(Collectors.toList());
-
-                    // Mapear la ciudad a DTO e incluir los productos
-                    CiudadDTO ciudadDTO = ciudadMapper.toDTO(ciudad);
-                    ciudadDTO.setProductos(productos);
-                    return ciudadDTO;
-                })
+    // Obtener todas las ciudades
+    public List<CiudadDTO> getAllCiudades() {
+        List<Ciudad> ciudades = ciudadRepository.findAll();
+        return ciudades.stream()
+                .map(ciudadMapper::toDTO)  // Mapear Ciudad a CiudadDTO
                 .collect(Collectors.toList());
     }
 
-    public Optional<CiudadDTO> obtenerCiudadPorId(Long id) {
-        return ciudadRepository.findById(id)
-                .map(ciudad -> {
-                    List<ProductoDTO> productos = productoRepository.findByCiudadId(ciudad.getId()).stream()
-                            .map(producto -> new ProductoDTO(
-                                    producto.getId(),
-                                    producto.getNombre(),
-                                    producto.getCategoria().toString(),
-                                    producto.getPrecioBase()
-                            ))
-                            .collect(Collectors.toList());
-
-                    CiudadDTO ciudadDTO = ciudadMapper.toDTO(ciudad);
-                    ciudadDTO.setProductos(productos);
-                    return ciudadDTO;
-                });
+    // Obtener ciudad por ID
+    public CiudadDTO getCiudadById(Long id) {
+        Optional<Ciudad> ciudad = ciudadRepository.findById(id);
+        return ciudad.map(ciudadMapper::toDTO).orElseThrow();  // Lanzar excepción si no se encuentra
     }
 
-    public CiudadDTO guardarCiudad(CiudadDTO ciudadDTO) {
-        var entidad = ciudadMapper.toEntity(ciudadDTO);
-        var guardada = ciudadRepository.save(entidad);
-        return ciudadMapper.toDTO(guardada);
+    // Crear una nueva ciudad
+    public CiudadDTO createCiudad(CiudadDTO ciudadDTO) {
+        Ciudad ciudad = ciudadMapper.toEntity(ciudadDTO);
+        Ciudad savedCiudad = ciudadRepository.save(ciudad);
+        return ciudadMapper.toDTO(savedCiudad);  // Retornar el DTO de la ciudad guardada
     }
 
-    public void eliminarCiudad(Long id) {
+    // Actualizar ciudad existente
+    public CiudadDTO updateCiudad(Long id, CiudadDTO ciudadDTO) {
+        Optional<Ciudad> ciudadOpt = ciudadRepository.findById(id);
+        if (!ciudadOpt.isPresent()) {
+            throw new RuntimeException("Ciudad no encontrada");
+        }
+
+        Ciudad ciudad = ciudadOpt.get();
+        ciudad.setNombre(ciudadDTO.getNombre());
+        ciudad.setImpuestos(ciudadDTO.getImpuestos());
+
+        Ciudad updatedCiudad = ciudadRepository.save(ciudad);
+        return ciudadMapper.toDTO(updatedCiudad);  // Retornar el DTO actualizado
+    }
+
+    // Eliminar ciudad por ID
+    public void deleteCiudad(Long id) {
         ciudadRepository.deleteById(id);
     }
 }

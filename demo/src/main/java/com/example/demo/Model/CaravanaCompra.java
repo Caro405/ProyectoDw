@@ -5,8 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import com.example.demo.Model.Jugador;
-
 
 @Entity
 public class CaravanaCompra {
@@ -15,9 +13,8 @@ public class CaravanaCompra {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String tipo;
     private Integer cantidad;
-    private Integer precio_unitario;    
+    private Integer precioUnitario;
 
     @ManyToOne
     private Caravana caravana;
@@ -28,13 +25,13 @@ public class CaravanaCompra {
     @ManyToOne
     private Ciudad ciudad;
 
-    public CaravanaCompra() {
-    }
+    //Contructores 
+    public CaravanaCompra(){}
 
-    public CaravanaCompra( Integer cantidad, Integer precio_unitario, Caravana caravana, Producto producto,
+    public CaravanaCompra(Integer cantidad, Integer precioUnitario, Caravana caravana, Producto producto,
             Ciudad ciudad) {
         this.cantidad = cantidad;
-        this.precio_unitario = precio_unitario;
+        this.precioUnitario = precioUnitario;
         this.caravana = caravana;
         this.producto = producto;
         this.ciudad = ciudad;
@@ -52,16 +49,16 @@ public class CaravanaCompra {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public Integer getPrecio_unitario() {
-        return precio_unitario;
+    public Integer getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public void setPrecio_unitario(Integer precio_unitario) {
-        this.precio_unitario = precio_unitario;
+    public void setPrecioUnitario(Integer precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 
     public Caravana getCaravana() {
@@ -86,6 +83,9 @@ public class CaravanaCompra {
 
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
-    }  
-     
+    }
+
+    
+
+    
 }
