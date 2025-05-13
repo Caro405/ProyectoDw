@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    
+
+    <title>Editar Ruta</title>
+</head>
+<body>
+<div class="container"> 
+    <h1>Editar Ruta</h1>
+
+    <form action="/ruta/save" method="post">
+        <input type="hidden" name="id" th:value="${ruta.id}">
+
+        <label>Distancia (km):</label>
+        <input type="number" id="distancia" name="distancia" th:value="${ruta.distancia}" required>
+
+        <br>
+
+        <label>Es Segura:</label>
+        <select id="esSegura" name="esSegura">
+            <option value="true" th:selected="${ruta.esSegura}">Sí</option>
+            <option value="false" th:selected="${!ruta.esSegura}">No</option>
+        </select>
+
+        <br>
+
+        <label>Ataque:</label>
+        <input type="number" id="ataque" name="ataque" th:value="${ruta.ataque}" required>
+
+        <br>
+        
+        <label>Causa de Ataque:</label>
+        <select id="causaAtaque" name="causaAtaque">
+            <option value="Bandidos" th:selected="${ruta.causaAtaque == 'Bandidos'}">Bandidos</option>
+            <option value="Desastre Natural" th:selected="${ruta.causaAtaque == 'Desastre Natural'}">Desastre Natural</option>
+        </select>
+
+        <br>
+
+        <label>Ciudad Origen:</label>
+        <select id="ciudadOrigenId" name="ciudadOrigenId">
+            <option th:each="ciudad : ${listaCiudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" th:selected="${ciudad.id == ruta.ciudadOrigenId}"></option>
+        </select>
+
+        <br>
+
+        <label>Ciudad Destino:</label>
+        <select id="ciudadDestinoId" name="ciudadDestinoId">
+            <option th:each="ciudad : ${listaCiudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" th:selected="${ciudad.id == ruta.ciudadDestinoId}"></option>
+        </select>
+
+        <br>
+
+        <button type="submit">Guardar</button>
+        <a href="/ruta/list"><button type="button">Volver</button></a>
+    </form>
+
+</div>
+</body>
+</html>
