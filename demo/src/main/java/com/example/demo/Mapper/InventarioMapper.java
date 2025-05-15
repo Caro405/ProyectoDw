@@ -6,15 +6,30 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface InventarioMapper {
-
-    InventarioMapper INSTANCE = Mappers.getMapper(InventarioMapper.class);
 
     @Mapping(source = "caravana.id", target = "caravanaId")
     InventarioDTO toDTO(Inventario inventario);
 
     @Mapping(source = "caravanaId", target = "caravana")
     Inventario toEntity(InventarioDTO inventarioDTO);
-}
 
+    // Método para convertir Long a Caravana
+    default Caravana map(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Caravana caravana = new Caravana();
+        caravana.setId(id);
+        return caravana;
+    }
+
+    // Método para convertir Caravana a Long (su id)
+    default Long map(Caravana caravana) {
+        if (caravana == null) {
+            return null;
+        }
+        return caravana.getId();
+    }
+}

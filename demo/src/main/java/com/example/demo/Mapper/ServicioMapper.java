@@ -9,8 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface ServicioMapper {
 
-    ServicioMapper INSTANCE = Mappers.getMapper(ServicioMapper.class);
-
+   
     ServicioDTO toDTO(Servicio servicio);
 
     Servicio toEntity(ServicioDTO servicioDTO);

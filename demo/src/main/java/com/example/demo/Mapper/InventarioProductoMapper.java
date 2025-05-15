@@ -9,8 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface InventarioProductoMapper {
 
-    InventarioProductoMapper INSTANCE = Mappers.getMapper(InventarioProductoMapper.class);
-
+   
     @Mapping(source = "producto.id", target = "productoId")
     @Mapping(source = "inventario.id", target = "inventarioId")
     InventarioProductoDTO inventarioProductoToInventarioProductoDTO(InventarioProducto inventarioProducto);

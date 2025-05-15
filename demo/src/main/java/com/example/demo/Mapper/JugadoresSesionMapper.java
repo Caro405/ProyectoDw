@@ -10,8 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface JugadoresSesionMapper {
-    JugadoresSesionMapper INSTANCE = Mappers.getMapper(JugadoresSesionMapper.class);
-
+    
     JugadoresSesionDTO toDTO(Jugador jugadoresSesion);
     JugadoresSesion toEntity(JugadoresSesionDTO jugadoresSesionDTO);
 }

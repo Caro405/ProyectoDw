@@ -7,8 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface ProductoCiudadMapper {
-    ProductoCiudadMapper INSTANCE = Mappers.getMapper(ProductoCiudadMapper.class);
-
+    
     ProductoCiudadDTO toDTO(ProductoCiudad productoCiudad);
     ProductoCiudad toEntity(ProductoCiudadDTO productoCiudadDTO);
 }

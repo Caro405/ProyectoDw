@@ -9,7 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface CiudadMapper {
 
-    CiudadMapper INSTANCE = Mappers.getMapper(CiudadMapper.class);
 
     @Mapping(source = "rutasSalida", target = "rutasSalida")
     @Mapping(source = "rutasLlegada", target = "rutasLlegada")

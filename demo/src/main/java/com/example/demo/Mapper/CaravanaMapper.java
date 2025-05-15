@@ -6,10 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CaravanaMapper {
 
-    CaravanaMapper INSTANCE = Mappers.getMapper(CaravanaMapper.class);
 
     @Mapping(source = "inventario", target = "inventarioDTO")
     @Mapping(source = "jugador", target = "jugadorDTO")

@@ -1,34 +1,27 @@
-package com.example.demo.Service;
-
-import com.example.demo.dto.CaravanaDTO;
-import com.example.demo.Model.Caravana;
-import com.example.demo.Model.Inventario;
-import com.example.demo.Mapper.CaravanaMapper;
-import com.example.demo.Mapper.InventarioMapper;
-
-import com.example.demo.Repository.CaravanaRepository;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class CaravanaService {
 
- @Autowired
-private InventarioService inventarioService;
+    @Autowired
+    private CaravanaMapper caravanaMapper;  // Inyección de CaravanaMapper
 
-public CaravanaDTO createCaravana(CaravanaDTO caravanaDTO) {
-    Caravana caravana = caravanaMapper.toEntity(caravanaDTO);
+    @Autowired
+    private InventarioMapper inventarioMapper;  // Inyección de InventarioMapper
 
-    // Crear el inventario relacionado
-    Inventario inventario = inventarioMapper.toEntity(caravanaDTO.getInventarioDTO());
-    caravana.setInventario(inventario);
+    @Autowired
+    private CaravanaRepository caravanaRepository;
 
-    // Guardar la caravana
-    caravana = caravanaRepository.save(caravana);
+    public CaravanaDTO createCaravana(CaravanaDTO caravanaDTO) {
+        // Convierte CaravanaDTO a Caravana
+        Caravana caravana = caravanaMapper.toEntity(caravanaDTO);
 
-    return caravanaMapper.toDTO(caravana);
-}
+        // Crear el inventario relacionado
+        Inventario inventario = inventarioMapper.toEntity(caravanaDTO.getInventarioDTO());
+        caravana.setInventario(inventario);
 
+        // Guardar la caravana en el repositorio
+        caravana = caravanaRepository.save(caravana);
+
+        // Devuelve el CaravanaDTO mapeado
+        return caravanaMapper.toDTO(caravana);
+    }
 }

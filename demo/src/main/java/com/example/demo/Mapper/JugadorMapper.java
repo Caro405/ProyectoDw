@@ -8,8 +8,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface JugadorMapper {
 
-    JugadorMapper INSTANCE = Mappers.getMapper(JugadorMapper.class);
-
+    
     JugadorDTO jugadorToJugadorDTO(Jugador jugador);
 
     Jugador jugadorDTOToJugador(JugadorDTO jugadorDTO);
