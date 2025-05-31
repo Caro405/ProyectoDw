@@ -1,62 +1,72 @@
 package com.example.demo.Service;
 
-import com.example.demo.dto.CiudadDTO;
 import com.example.demo.Model.Ciudad;
 import com.example.demo.Repository.CiudadRepository;
+import com.example.demo.dto.CiudadDTO;
 import com.example.demo.Mapper.CiudadMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CiudadService {
 
-    @Autowired
-    private CiudadRepository ciudadRepository;
+    private final CiudadRepository ciudadRepository;
+    private final CiudadMapper ciudadMapper;
 
-    private final CiudadMapper ciudadMapper = CiudadMapper.INSTANCE;
+    //@Autowired
+    public CiudadService(CiudadRepository ciudadRepository, CiudadMapper ciudadMapper) {
+        this.ciudadRepository = ciudadRepository;
+        this.ciudadMapper = ciudadMapper;
+    }
 
-    // Obtener todas las ciudades
-    public List<CiudadDTO> getAllCiudades() {
-        List<Ciudad> ciudades = ciudadRepository.findAll();
-        return ciudades.stream()
-                .map(ciudadMapper::toDTO)  // Mapear Ciudad a CiudadDTO
+    public List<CiudadDTO> findAll() {
+        return ciudadRepository.findAll()
+                .stream()
+                .map(ciudadMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener ciudad por ID
-    public CiudadDTO getCiudadById(Long id) {
-        Optional<Ciudad> ciudad = ciudadRepository.findById(id);
-        return ciudad.map(ciudadMapper::toDTO).orElseThrow();  // Lanzar excepción si no se encuentra
+    public Optional<CiudadDTO> findById(Long id) {
+        return ciudadRepository.findById(id)
+                .map(ciudadMapper::toDTO);
     }
 
-    // Crear una nueva ciudad
-    public CiudadDTO createCiudad(CiudadDTO ciudadDTO) {
+    public Ciudad getCiudadEntityById(Long id) {
+        return ciudadRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ciudad no encontrada con id: " + id));
+    }
+
+    public CiudadDTO save(CiudadDTO ciudadDTO) {
         Ciudad ciudad = ciudadMapper.toEntity(ciudadDTO);
         Ciudad savedCiudad = ciudadRepository.save(ciudad);
-        return ciudadMapper.toDTO(savedCiudad);  // Retornar el DTO de la ciudad guardada
+        return ciudadMapper.toDTO(savedCiudad);
     }
 
-    // Actualizar ciudad existente
-    public CiudadDTO updateCiudad(Long id, CiudadDTO ciudadDTO) {
-        Optional<Ciudad> ciudadOpt = ciudadRepository.findById(id);
-        if (!ciudadOpt.isPresent()) {
-            throw new RuntimeException("Ciudad no encontrada");
+    public CiudadDTO update(Long id, CiudadDTO ciudadDTO) {
+        if (!ciudadRepository.existsById(id)) {
+            throw new RuntimeException("Ciudad no encontrada con id: " + id);
         }
-
-        Ciudad ciudad = ciudadOpt.get();
-        ciudad.setNombre(ciudadDTO.getNombre());
-        ciudad.setImpuestos(ciudadDTO.getImpuestos());
-
+        ciudadDTO.setId(id);
+        Ciudad ciudad = ciudadMapper.toEntity(ciudadDTO);
         Ciudad updatedCiudad = ciudadRepository.save(ciudad);
-        return ciudadMapper.toDTO(updatedCiudad);  // Retornar el DTO actualizado
+        return ciudadMapper.toDTO(updatedCiudad);
     }
 
-    // Eliminar ciudad por ID
-    public void deleteCiudad(Long id) {
+    public void deleteById(Long id) {
+        if (!ciudadRepository.existsById(id)) {
+            throw new RuntimeException("Ciudad no encontrada con id: " + id);
+        }
         ciudadRepository.deleteById(id);
     }
+
+    public boolean existsById(Long id) {
+        return ciudadRepository.existsById(id);
+    }
+
 }

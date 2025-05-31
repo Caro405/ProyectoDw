@@ -2,7 +2,9 @@ package com.example.demo.Controller;
 
 import com.example.demo.dto.JugadorDTO;
 import com.example.demo.Service.JugadorService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +17,32 @@ public class JugadorController {
     private JugadorService jugadorService;
 
     @GetMapping
-    public List<JugadorDTO> getAllJugadores() {
-        return jugadorService.getAllJugadores();
+    public List<JugadorDTO> getAll() {
+        return jugadorService.getAll();
     }
 
     @GetMapping("/{id}")
-    public JugadorDTO getJugadorById(@PathVariable Long id) {
-        return jugadorService.getJugadorById(id);
+    public ResponseEntity<JugadorDTO> getById(@PathVariable Long id) {
+        JugadorDTO dto = jugadorService.getById(id);
+        if (dto == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public JugadorDTO createJugador(@RequestBody JugadorDTO jugadorDTO) {
-        return jugadorService.createJugador(jugadorDTO);
+    public JugadorDTO create(@RequestBody JugadorDTO dto) {
+        return jugadorService.create(dto);
     }
 
     @PutMapping("/{id}")
-    public JugadorDTO updateJugador(@PathVariable Long id, @RequestBody JugadorDTO jugadorDTO) {
-        return jugadorService.updateJugador(id, jugadorDTO);
+    public ResponseEntity<JugadorDTO> update(@PathVariable Long id, @RequestBody JugadorDTO dto) {
+        JugadorDTO updated = jugadorService.update(id, dto);
+        if (updated == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteJugador(@PathVariable Long id) {
-        jugadorService.deleteJugador(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        jugadorService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

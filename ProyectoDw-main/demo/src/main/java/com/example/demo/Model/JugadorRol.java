@@ -1,10 +1,6 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class JugadorRol {
@@ -13,10 +9,12 @@ public class JugadorRol {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "jugador_id")
     private Jugador jugador;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id")
     private Rol rol;
 
     public JugadorRol() {}
@@ -27,6 +25,7 @@ public class JugadorRol {
     }
 
     // Getters y Setters
+
     public Long getId() {
         return id;
     }

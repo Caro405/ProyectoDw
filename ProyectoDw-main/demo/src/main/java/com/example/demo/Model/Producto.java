@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Producto {
@@ -24,9 +23,6 @@ public class Producto {
     private Integer factorOferta;
     private Integer factorDemanda;
 
-    @ManyToOne
-    private Ciudad ciudad;
-
     // Lista de categorías permitidas
     public enum Categoria {
         ESPECIA,
@@ -39,13 +35,12 @@ public class Producto {
     // Constructores
     public Producto() {}
 
-    public Producto(String nombre, Categoria categoria, Integer precioBase, Integer factorOferta, Integer factorDemanda, Ciudad ciudad) {
+    public Producto(String nombre, Categoria categoria, Integer precioBase, Integer factorOferta, Integer factorDemanda) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.precioBase = precioBase;
         this.factorOferta = factorOferta;
         this.factorDemanda = factorDemanda;
-        this.ciudad = ciudad;
     }
 
     // Getters y Setters
@@ -64,9 +59,13 @@ public class Producto {
     public Integer getFactorOferta() { return factorOferta; }
     public void setFactorOferta(Integer factorOferta) { this.factorOferta = factorOferta; }
 
-    public Integer getFactorDemanda() { return factorDemanda; }
-    public void setFactorDemanda(Integer factorDemanda) { this.factorDemanda = factorDemanda; }
+    public Integer getFactorDemanda() {
+        return factorDemanda;
+    }
 
-    public Ciudad getCiudad() { return ciudad; }
-    public void setCiudad(Ciudad ciudad) { this.ciudad = ciudad; }
+    public void setFactorDemanda(Integer factorDemanda) {
+        this.factorDemanda = factorDemanda;
+    }
+
+
 }

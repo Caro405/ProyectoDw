@@ -13,11 +13,9 @@ public interface CiudadMapper {
 
     @Mapping(source = "rutasSalida", target = "rutasSalida")
     @Mapping(source = "rutasLlegada", target = "rutasLlegada")
-    @Mapping(source = "productos", target = "productos")
     CiudadDTO toDTO(Ciudad ciudad);
 
     @Mapping(source = "rutasSalida", target = "rutasSalida")
     @Mapping(source = "rutasLlegada", target = "rutasLlegada")
-    @Mapping(source = "productos", target = "productos")
     Ciudad toEntity(CiudadDTO ciudadDTO);
 }

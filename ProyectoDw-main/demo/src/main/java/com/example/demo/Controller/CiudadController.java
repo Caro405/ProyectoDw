@@ -2,7 +2,8 @@ package com.example.demo.Controller;
 
 import com.example.demo.dto.CiudadDTO;
 import com.example.demo.Service.CiudadService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,31 +12,52 @@ import java.util.List;
 @RequestMapping("/api/ciudades")
 public class CiudadController {
 
-    @Autowired
-    private CiudadService ciudadService;
+    private final CiudadService ciudadService;
 
+    public CiudadController(CiudadService ciudadService) {
+        this.ciudadService = ciudadService;
+    }
+
+    // Obtener todas las ciudades
     @GetMapping
-    public List<CiudadDTO> getAllCiudades() {
-        return ciudadService.getAllCiudades();
+    public ResponseEntity<List<CiudadDTO>> getAllCiudades() {
+        List<CiudadDTO> ciudades = ciudadService.findAll();
+        return ResponseEntity.ok(ciudades);
     }
 
+    // Obtener una ciudad por ID
     @GetMapping("/{id}")
-    public CiudadDTO getCiudadById(@PathVariable Long id) {
-        return ciudadService.getCiudadById(id);
+    public ResponseEntity<CiudadDTO> getCiudadById(@PathVariable Long id) {
+        return ciudadService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
+    // Crear una nueva ciudad
     @PostMapping
-    public CiudadDTO createCiudad(@RequestBody CiudadDTO ciudadDTO) {
-        return ciudadService.createCiudad(ciudadDTO);
+    public ResponseEntity<CiudadDTO> createCiudad(@RequestBody CiudadDTO ciudadDTO) {
+        CiudadDTO nuevaCiudad = ciudadService.save(ciudadDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaCiudad);
     }
 
+    // Actualizar una ciudad existente
     @PutMapping("/{id}")
-    public CiudadDTO updateCiudad(@PathVariable Long id, @RequestBody CiudadDTO ciudadDTO) {
-        return ciudadService.updateCiudad(id, ciudadDTO);
+    public ResponseEntity<CiudadDTO> updateCiudad(@PathVariable Long id, @RequestBody CiudadDTO ciudadDTO) {
+        if (!ciudadService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        ciudadDTO.setId(id);
+        CiudadDTO updatedCiudad = ciudadService.update(id, ciudadDTO);
+        return ResponseEntity.ok(updatedCiudad);
     }
 
+    // Eliminar una ciudad
     @DeleteMapping("/{id}")
-    public void deleteCiudad(@PathVariable Long id) {
-        ciudadService.deleteCiudad(id);
+    public ResponseEntity<Void> deleteCiudad(@PathVariable Long id) {
+        if (!ciudadService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        ciudadService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,34 +1,27 @@
 package com.example.demo.Mapper;
 
+import com.example.demo.Model.*;
 import com.example.demo.dto.RutaDTO;
-import com.example.demo.Model.Ciudad;
-import com.example.demo.Model.Ruta;
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class RutaMapper {
+@Mapper(componentModel = "spring")
+public interface RutaMapper {
 
-    public static RutaDTO toDTO(Ruta ruta) {
-        return new RutaDTO(
-                ruta.getId(),
-                ruta.getDistancia(),
-                ruta.isEsSegura(),
-                ruta.getAtaque(),
-                ruta.getCausaAtaque(),
-                ruta.getCiudadOrigen().getId(),
-                ruta.getCiudadDestino().getId(),
-                ruta.getCiudadOrigen().getNombre(),
-                ruta.getCiudadDestino().getNombre()
-        );
-    }
+    @Mapping(source = "ciudadOrigen.id", target = "ciudadOrigenId")
+    @Mapping(source = "ciudadOrigen.nombre", target = "ciudadOrigenNombre")
+    @Mapping(source = "ciudadDestino.id", target = "ciudadDestinoId")
+    @Mapping(source = "ciudadDestino.nombre", target = "ciudadDestinoNombre")
+    RutaDTO toDTO(Ruta ruta);
 
-    public static Ruta toEntity(RutaDTO rutaDTO, Ciudad ciudadOrigen, Ciudad ciudadDestino) {
-        Ruta ruta = new Ruta();
-        ruta.setId(rutaDTO.getId());
-        ruta.setDistancia(rutaDTO.getDistancia());
-        ruta.setEsSegura(rutaDTO.isEsSegura());
-        ruta.setAtaque(rutaDTO.getAtaque());
-        ruta.setCausaAtaque(rutaDTO.getCausaAtaque());
-        ruta.setCiudadOrigen(ciudadOrigen);
-        ruta.setCiudadDestino(ciudadDestino);
+    @Mapping(target = "ciudadOrigen", ignore = true)
+    @Mapping(target = "ciudadDestino", ignore = true)
+    Ruta toEntity(RutaDTO rutaDTO);
+
+    default Ruta toEntityWithCiudades(RutaDTO rutaDTO, Ciudad origen, Ciudad destino) {
+        Ruta ruta = toEntity(rutaDTO);
+        ruta.setCiudadOrigen(origen);
+        ruta.setCiudadDestino(destino);
         return ruta;
     }
 }

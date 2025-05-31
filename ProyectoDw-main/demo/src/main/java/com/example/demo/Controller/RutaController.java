@@ -1,74 +1,59 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Service.RutaService;  
-import com.example.demo.Service.CiudadService;  
-import com.example.demo.dto.RutaDTO;  
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;  
-import org.springframework.web.servlet.ModelAndView;  
+import com.example.demo.dto.RutaDTO;
+import com.example.demo.Service.RutaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-// Asegúrate de importar estas clases
-import java.util.List;  // Importar List correctamente
-import java.util.Optional;  // Importar Optional correctamente
+import java.util.List;
 
 @RestController
-@RequestMapping("/ruta")
+@RequestMapping("/api/rutas")
 public class RutaController {
 
-    @Autowired
-    private RutaService rutaService;
+    private final RutaService rutaService;
 
-    @Autowired
-    private CiudadService ciudadService;
-
-    // Listar rutas
-    @GetMapping("/list")
-    public ModelAndView listarRutas() {
-        List<RutaDTO> rutas = rutaService.listarRutas();
-        return new ModelAndView("ruta-list").addObject("listaRutas", rutas);
+ //   @Autowired
+    public RutaController(RutaService rutaService) {
+        this.rutaService = rutaService;
     }
 
-    // Formulario para crear una ruta
-    @GetMapping("/create")
-    public ModelAndView formularioCrearRuta() {
-        return new ModelAndView("ruta-edit")
-                .addObject("ruta", new RutaDTO())
-                .addObject("listaCiudades", ciudadService.getAllCiudades());
+    @GetMapping
+    public ResponseEntity<List<RutaDTO>> getAllRutas() {
+        List<RutaDTO> rutas = rutaService.findAll();
+        return new ResponseEntity<>(rutas, HttpStatus.OK);
     }
 
-    // Guardar ruta
-    @PostMapping("/save")
-    public String guardarRuta(@ModelAttribute RutaDTO rutaDTO) {
-        rutaService.guardarRuta(rutaDTO);  
-        return "redirect:/ruta/list";  
+    @GetMapping("/{id}")
+    public ResponseEntity<RutaDTO> getRutaById(@PathVariable Long id) {
+        return rutaService.findById(id)
+                .map(ruta -> new ResponseEntity<>(ruta, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Eliminar ruta
-    @GetMapping("/delete/{id}")
-    public String borrarRuta(@PathVariable Long id) {
-        rutaService.eliminarRuta(id); 
-        return "redirect:/ruta/list"; 
+    @PostMapping
+    public ResponseEntity<RutaDTO> createRuta(@RequestBody RutaDTO rutaDTO) {
+        RutaDTO nuevaRuta = rutaService.save(rutaDTO);
+        return new ResponseEntity<>(nuevaRuta, HttpStatus.CREATED);
     }
 
-    // Ver detalles de una ruta
-    @GetMapping("/view/{id}")
-    public ModelAndView verRuta(@PathVariable Long id) {
-        Optional<RutaDTO> rutaDTO = rutaService.obtenerRutaPorId(id);
-        if (rutaDTO.isEmpty()) {
-            return new ModelAndView("redirect:/ruta/list");
+    @PutMapping("/{id}")
+    public ResponseEntity<RutaDTO> updateRuta(@PathVariable Long id, @RequestBody RutaDTO rutaDTO) {
+        if (!rutaService.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ModelAndView("ruta-view").addObject("ruta", rutaDTO.get());
+        rutaDTO.setId(id); // Asegurar que el ID coincida
+        RutaDTO updatedRuta = rutaService.save(rutaDTO);
+        return new ResponseEntity<>(updatedRuta, HttpStatus.OK);
     }
 
-    // Formulario para editar una ruta
-    @GetMapping("/edit/{id}")
-    public ModelAndView formularioEditarRuta(@PathVariable Long id) {
-        Optional<RutaDTO> rutaDTO = rutaService.obtenerRutaPorId(id);
-        if (rutaDTO.isEmpty()) {
-            return new ModelAndView("redirect:/ruta/list");
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRuta(@PathVariable Long id) {
+        if (!rutaService.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ModelAndView("ruta-edit")
-                .addObject("ruta", rutaDTO.get())
-                .addObject("listaCiudades", ciudadService.getAllCiudades());
+        rutaService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

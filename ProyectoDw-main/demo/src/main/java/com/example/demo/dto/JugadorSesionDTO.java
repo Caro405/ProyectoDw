@@ -1,14 +1,14 @@
 package com.example.demo.dto;
 
-public class JugadoresSesionDTO {
+public class JugadorSesionDTO {
 
     private Long id;
     private Long jugadorId;
     private Long sesionJuegoId;
 
-    public JugadoresSesionDTO() {}
+    public JugadorSesionDTO() {}
 
-    public JugadoresSesionDTO(Long id, Long jugadorId, Long sesionJuegoId) {
+    public JugadorSesionDTO(Long id, Long jugadorId, Long sesionJuegoId) {
         this.id = id;
         this.jugadorId = jugadorId;
         this.sesionJuegoId = sesionJuegoId;

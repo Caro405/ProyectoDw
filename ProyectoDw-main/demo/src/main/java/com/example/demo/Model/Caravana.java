@@ -1,17 +1,14 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Caravana {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
@@ -23,21 +20,20 @@ public class Caravana {
     private Integer puntosVidaMax;
     private boolean guardias;
 
-    //Relaciones
+    // Relación OneToMany con Jugador
+    @OneToMany(mappedBy = "caravana", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Jugador> jugadores = new ArrayList<>();
 
-    @ManyToOne
-    private Jugador jugador;
+    // Relación OneToOne con Inventario 
+    @OneToOne(mappedBy = "caravana", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Inventario inventario;
 
-    @OneToOne(mappedBy = "caravana")
-    private Inventario inventario; 
-
-
-    // Constructor sin parámetros
+    // Constructores
     public Caravana() {}
 
-    // Constructor con todos los parámetros
-     public Caravana(String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero,
-                    Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias, Jugador jugador, Inventario inventario) {
+    public Caravana(String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, 
+                   Integer dinero, Integer puntosVidaActual, Integer puntosVidaMax, 
+                   boolean guardias) {
         this.nombre = nombre;
         this.velocidad = velocidad;
         this.cargaActual = cargaActual;
@@ -46,11 +42,31 @@ public class Caravana {
         this.puntosVidaActual = puntosVidaActual;
         this.puntosVidaMax = puntosVidaMax;
         this.guardias = guardias;
-        this.jugador = jugador;
-        this.inventario = inventario;  
     }
 
-    // Getters y setters
+    // Métodos para manejo de relaciones bidireccionales
+    public void addJugador(Jugador jugador) {
+        jugadores.add(jugador);
+        jugador.setCaravana(this);
+    }
+
+    public void removeJugador(Jugador jugador) {
+        jugadores.remove(jugador);
+        jugador.setCaravana(null);
+    }
+
+    public void setInventario(Inventario inventario) {
+        if (inventario == null) {
+            if (this.inventario != null) {
+                this.inventario.setCaravana(null);
+            }
+        } else {
+            inventario.setCaravana(this);
+        }
+        this.inventario = inventario;
+    }
+
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -123,21 +139,15 @@ public class Caravana {
         this.guardias = guardias;
     }
 
-    public Jugador getJugador() {
-        return jugador;
+    public List<Jugador> getJugadores() {
+        return jugadores;
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
 
     public Inventario getInventario() {
         return inventario;
     }
-
-    public void setInventario(Inventario inventario) {
-        this.inventario = inventario;
-    }
-
-    
 }

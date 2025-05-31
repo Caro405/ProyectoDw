@@ -16,7 +16,12 @@ public class InventarioService {
     @Autowired
     private InventarioRepository inventarioRepository;
 
-    private final InventarioMapper inventarioMapper = InventarioMapper.INSTANCE;
+    private final InventarioMapper inventarioMapper;
+
+    // Inyección por constructor (recomendado)
+    public InventarioService(InventarioMapper inventarioMapper) {
+        this.inventarioMapper = inventarioMapper;
+    }
 
     // Obtener todos los inventarios
     public List<InventarioDTO> getAllInventarios() {
@@ -28,7 +33,8 @@ public class InventarioService {
 
     // Obtener un inventario por ID
     public InventarioDTO getInventarioById(Long id) {
-        Inventario inventario = inventarioRepository.findById(id).orElseThrow();
+        Inventario inventario = inventarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Inventario no encontrado con id: " + id));
         return inventarioMapper.toDTO(inventario);
     }
 
@@ -41,15 +47,23 @@ public class InventarioService {
 
     // Actualizar un inventario existente
     public InventarioDTO updateInventario(Long id, InventarioDTO inventarioDTO) {
-        Inventario inventario = inventarioRepository.findById(id).orElseThrow();
+        Inventario inventario = inventarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Inventario no encontrado con id: " + id));
+        
         inventario.setNombre(inventarioDTO.getNombre());
-        // Actualiza cualquier otro campo necesario
+        // Si deseas actualizar caravana, productosInventario, serviciosInventario, agregalos aquí
+        // Por ejemplo, actualizar caravana:
+        // inventario.setCaravana(inventarioMapper.map(inventarioDTO.getCaravanaId()));
+        
         inventarioRepository.save(inventario);
         return inventarioMapper.toDTO(inventario);
     }
 
     // Eliminar un inventario
     public void deleteInventario(Long id) {
+        if (!inventarioRepository.existsById(id)) {
+            throw new RuntimeException("Inventario no encontrado con id: " + id);
+        }
         inventarioRepository.deleteById(id);
     }
 }

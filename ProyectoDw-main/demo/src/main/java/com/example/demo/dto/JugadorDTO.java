@@ -1,22 +1,20 @@
 package com.example.demo.dto;
 
-import com.example.demo.dto.JugadorDTO;
+import java.util.List;
 
 public class JugadorDTO {
 
     private Long id;
     private String nombre;
-    private Long sesionJuegoId; 
+
+    private Long caravanaId;
+
+    // IDs de roles para simplificar
+    private List<Long> rolesIds;
 
     public JugadorDTO() {}
 
-    public JugadorDTO(Long id, String nombre, Long sesionJuegoId) {
-        this.id = id;
-        this.nombre = nombre;
-        this.sesionJuegoId = sesionJuegoId;
-    }
-
-    // Getters and Setters
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -33,11 +31,19 @@ public class JugadorDTO {
         this.nombre = nombre;
     }
 
-    public Long getSesionJuegoId() {
-        return sesionJuegoId;
+    public Long getCaravanaId() {
+        return caravanaId;
     }
 
-    public void setSesionJuegoId(Long sesionJuegoId) {
-        this.sesionJuegoId = sesionJuegoId;
+    public void setCaravanaId(Long caravanaId) {
+        this.caravanaId = caravanaId;
+    }
+
+    public List<Long> getRolesIds() {
+        return rolesIds;
+    }
+
+    public void setRolesIds(List<Long> rolesIds) {
+        this.rolesIds = rolesIds;
     }
 }

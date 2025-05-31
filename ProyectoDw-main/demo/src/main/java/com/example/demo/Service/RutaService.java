@@ -1,16 +1,11 @@
 package com.example.demo.Service;
 
+import com.example.demo.Model.*;
+import com.example.demo.Repository.RutaRepository;
 import com.example.demo.dto.RutaDTO;
 import com.example.demo.Mapper.RutaMapper;
-import com.example.demo.Model.Ciudad;
-import com.example.demo.Model.Ruta;
-import com.example.demo.Repository.CiudadRepository;
-import com.example.demo.Repository.RutaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import com.example.demo.Service.RutaService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,32 +16,39 @@ public class RutaService {
 
     @Autowired
     private RutaRepository rutaRepository;
-
+    
     @Autowired
-    private CiudadRepository ciudadRepository;
+    private RutaMapper rutaMapper;
+    
+    @Autowired
+    private CiudadService ciudadService;
 
-    // Listar todas las rutas
-    public List<RutaDTO> listarRutas() {
-        return rutaRepository.findAll().stream()
-                .map(RutaMapper::toDTO)
+    public boolean existsById(Long id) {
+    return rutaRepository.existsById(id);
+}
+
+public void deleteById(Long id) {
+    rutaRepository.deleteById(id);
+}
+
+    public List<RutaDTO> findAll() {
+        return rutaRepository.findAll()
+                .stream()
+                .map(rutaMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener una ruta por su ID
-    public Optional<RutaDTO> obtenerRutaPorId(Long id) {
-        return rutaRepository.findById(id).map(RutaMapper::toDTO);
+    public Optional<RutaDTO> findById(Long id) {
+        return rutaRepository.findById(id)
+                .map(rutaMapper::toDTO);
     }
 
-    // Guardar una nueva ruta
-    public void guardarRuta(RutaDTO rutaDTO) {
-        Ciudad ciudadOrigen = ciudadRepository.findById(rutaDTO.getCiudadOrigenId()).orElseThrow();
-        Ciudad ciudadDestino = ciudadRepository.findById(rutaDTO.getCiudadDestinoId()).orElseThrow();
-        Ruta ruta = RutaMapper.toEntity(rutaDTO, ciudadOrigen, ciudadDestino);
-        rutaRepository.save(ruta);
-    }
-
-    // Eliminar una ruta por su ID
-    public void eliminarRuta(Long id) {
-        rutaRepository.deleteById(id);
+    public RutaDTO save(RutaDTO rutaDTO) {
+        Ciudad origen = ciudadService.getCiudadEntityById(rutaDTO.getCiudadOrigenId());
+        Ciudad destino = ciudadService.getCiudadEntityById(rutaDTO.getCiudadDestinoId());
+        
+        Ruta ruta = rutaMapper.toEntityWithCiudades(rutaDTO, origen, destino);
+        Ruta savedRuta = rutaRepository.save(ruta);
+        return rutaMapper.toDTO(savedRuta);
     }
 }

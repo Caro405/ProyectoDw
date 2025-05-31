@@ -1,31 +1,28 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.List;
+import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "rol")
 public class Rol {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String rol;
-
-    @OneToMany(mappedBy = "rol")
-    private List<JugadorRol> jugadores;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol_tipo", nullable = false, unique = true)
+    private RolTipo rolTipo;
 
     public Rol() {}
 
-    public Rol(String rol) {
-        this.rol = rol;
+    public Rol(RolTipo rolTipo) {
+        this.rolTipo = rolTipo;
     }
 
-    // Getters y Setters
+    // Getters y setters
+
     public Long getId() {
         return id;
     }
@@ -34,19 +31,11 @@ public class Rol {
         this.id = id;
     }
 
-    public String getRol() {
-        return rol;
+    public RolTipo getRolTipo() {
+        return rolTipo;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public List<JugadorRol> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(List<JugadorRol> jugadores) {
-        this.jugadores = jugadores;
+    public void setRolTipo(RolTipo rolTipo) {
+        this.rolTipo = rolTipo;
     }
 }

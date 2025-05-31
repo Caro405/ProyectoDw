@@ -3,8 +3,10 @@ package com.example.demo.Init;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
 import com.example.demo.Repository.*;
 import com.example.demo.Model.*;
+
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -31,52 +33,47 @@ public class DbInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Inicializando la base de datos...");
 
-        // Crear 100 ciudades
+        // Crear 100 ciudades con impuestos aleatorios
         List<Ciudad> ciudades = IntStream.rangeClosed(1, 100)
                 .mapToObj(i -> new Ciudad(
                         "Ciudad " + i,
-                        generarImpuestosAleatorios()  
+                        generarImpuestosAleatorios()
                 ))
                 .collect(Collectors.toList());
-
         ciudadRepository.saveAll(ciudades);
         System.out.println("100 ciudades creadas.");
 
-        // Crear '0' rutas entre ciudades existentes
+        // Crear rutas (2 por ciudad) si no tiene rutas de salida o llegada
         for (Ciudad ciudad : ciudades) {
-            // Verifica si la ciudad tiene rutas
-            if (ciudad.getRutasSalida().isEmpty() && ciudad.getRutasLlegada().isEmpty()) {
-                // Si no tiene rutas, crear dos rutas: una segura y otra insegura
-                Ciudad ciudadDestino1 = getRandomCiudad(ciudades);
-                Ciudad ciudadDestino2 = getRandomCiudad(ciudades);
-                
-                while (ciudadDestino1.equals(ciudadDestino2)) {
-                    ciudadDestino2 = getRandomCiudad(ciudades); // Evitar que la ciudad destino sea la misma
-                }
+            if ((ciudad.getRutasSalida() == null || ciudad.getRutasSalida().isEmpty()) &&
+                (ciudad.getRutasLlegada() == null || ciudad.getRutasLlegada().isEmpty())) {
 
-                // Crear una ruta segura
+                Ciudad ciudadDestino1 = getRandomCiudadDiferente(ciudades, ciudad);
+                Ciudad ciudadDestino2 = getRandomCiudadDiferente(ciudades, ciudadDestino1);
+
+                // Ruta segura
                 Ruta rutaSegura = new Ruta(
-                        random.nextInt(991) + 10,  // Distancia aleatoria entre 10 y 1000
-                        true,                       // Ruta segura
-                        0,                          // No hay ataque
-                        null                        // No hay causa de ataque
+                        random.nextInt(991) + 10,  // Distancia 10-1000
+                        true,                       // segura
+                        0,
+                        null
                 );
                 rutaSegura.setCiudadOrigen(ciudad);
                 rutaSegura.setCiudadDestino(ciudadDestino1);
-                rutaRepository.save(rutaSegura);  // Guarda la ruta segura en el repositorio
+                rutaRepository.save(rutaSegura);
 
-                // Crear una ruta insegura
+                // Ruta insegura
                 Ruta rutaInsegura = new Ruta(
-                        random.nextInt(991) + 10,  // Distancia aleatoria entre 10 y 1000
-                        false,                      // Ruta insegura
-                        random.nextInt(101),        // Daño aleatorio si no es segura
-                        random.nextBoolean() ? "Bandidos" : "Desastre Natural"  // Causa de ataque aleatoria
+                        random.nextInt(991) + 10,
+                        false,
+                        random.nextInt(101),  // daño 0-100
+                        random.nextBoolean() ? "Bandidos" : "Desastre Natural"
                 );
                 rutaInsegura.setCiudadOrigen(ciudad);
                 rutaInsegura.setCiudadDestino(ciudadDestino2);
-                rutaRepository.save(rutaInsegura);  // Guarda la ruta insegura en el repositorio
+                rutaRepository.save(rutaInsegura);
 
-                System.out.println("Se crearon rutas para la ciudad: " + ciudad.getNombre());
+                System.out.println("Rutas creadas para ciudad: " + ciudad.getNombre());
             }
         }
 
@@ -93,35 +90,40 @@ public class DbInitializer implements CommandLineRunner {
                 new Servicio("Negociación de Precios", generarPrecioBase(), 35, getRandomCiudad(ciudades)),
                 new Servicio("Almacenamiento Extra", generarPrecioBase(), 300, getRandomCiudad(ciudades))
         );
-
         servicioRepository.saveAll(servicios);
         System.out.println("10 servicios creados.");
 
-        // Crear 50 productos 
+        // Crear 50 productos con ciudad asignada y categorías permitidas
         List<Producto> productos = IntStream.rangeClosed(1, 50)
                 .mapToObj(i -> new Producto(
                         "Producto " + i,
                         getRandomCategoria(),
                         generarPrecioBase(),
                         generarFactor(),
-                        generarFactor(),
-                        getRandomCiudad(ciudades)  // Asociar una ciudad aleatoria
+                        generarDemanda()
                 ))
                 .collect(Collectors.toList());
-
         productoRepository.saveAll(productos);
         System.out.println("50 productos creados con categorías permitidas.");
 
         System.out.println("Inicialización de la base de datos completada con éxito.");
     }
 
-    // Métodos auxiliares
+    // Método para obtener ciudad aleatoria distinta a la dada
+    private Ciudad getRandomCiudadDiferente(List<Ciudad> ciudades, Ciudad excluida) {
+        Ciudad ciudadRandom;
+        do {
+            ciudadRandom = getRandomCiudad(ciudades);
+        } while (ciudadRandom.equals(excluida));
+        return ciudadRandom;
+    }
+
     private Ciudad getRandomCiudad(List<Ciudad> ciudades) {
         return ciudades.get(random.nextInt(ciudades.size()));
     }
 
     private Integer generarImpuestosAleatorios() {
-        return random.nextInt(951) + 50; // Genera un valor entre 50 y 1000
+        return random.nextInt(951) + 50; // entre 50 y 1000
     }
 
     private Producto.Categoria getRandomCategoria() {
@@ -129,13 +131,15 @@ public class DbInitializer implements CommandLineRunner {
         return categorias[random.nextInt(categorias.length)];
     }
 
-    // Método para generar el precio base
     private Integer generarPrecioBase() {
-        return random.nextInt(901) + 100; // Genera un valor entre 100 y 1000
+        return random.nextInt(901) + 100; // entre 100 y 1000
     }
 
-    // Método para generar un factor
     private Integer generarFactor() {
-        return random.nextInt(151) + 50; // Factor entre 50 y 200
+        return random.nextInt(151) + 50; // entre 50 y 200
+    }
+
+    private Integer generarDemanda() {
+        return random.nextInt(951) + 50; // entre 50 y 1000
     }
 }

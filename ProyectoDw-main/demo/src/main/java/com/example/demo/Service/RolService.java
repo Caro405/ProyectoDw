@@ -1,9 +1,10 @@
 package com.example.demo.Service;
 
-import com.example.demo.dto.RolDTO;
 import com.example.demo.Model.Rol;
+import com.example.demo.Model.RolTipo;
 import com.example.demo.Repository.RolRepository;
-import com.example.demo.Mapper.RolMapper;
+import com.example.demo.dto.RolDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,31 +17,37 @@ public class RolService {
     @Autowired
     private RolRepository rolRepository;
 
+    // Obtener todos los roles como DTOs
     public List<RolDTO> getAllRoles() {
         List<Rol> roles = rolRepository.findAll();
         return roles.stream()
-                .map(RolMapper.INSTANCE::rolToRolDTO)
+                .map(rol -> new RolDTO(rol.getId(), rol.getRolTipo().name()))
                 .collect(Collectors.toList());
     }
 
+    // Buscar Rol por ID
     public RolDTO getRolById(Long id) {
-        Rol rol = rolRepository.findById(id).orElseThrow();
-        return RolMapper.INSTANCE.rolToRolDTO(rol);
+        Rol rol = rolRepository.findById(id).orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+        return new RolDTO(rol.getId(), rol.getRolTipo().name());
     }
 
-    public RolDTO createRol(RolDTO rolDTO) {
-        Rol rol = RolMapper.INSTANCE.rolDTOToRol(rolDTO);
-        rolRepository.save(rol);
-        return RolMapper.INSTANCE.rolToRolDTO(rol);
+    // Crear un nuevo rol
+    public RolDTO createRol(String rolTipoStr) {
+        RolTipo rolTipo = RolTipo.valueOf(rolTipoStr.toUpperCase());
+        Rol rol = new Rol(rolTipo);
+        Rol saved = rolRepository.save(rol);
+        return new RolDTO(saved.getId(), saved.getRolTipo().name());
     }
 
-    public RolDTO updateRol(Long id, RolDTO rolDTO) {
-        Rol rol = rolRepository.findById(id).orElseThrow();
-        rol.setRol(rolDTO.getRol());
-        rolRepository.save(rol);
-        return RolMapper.INSTANCE.rolToRolDTO(rol);
+    // Actualizar rol (solo rolTipo)
+    public RolDTO updateRol(Long id, String rolTipoStr) {
+        Rol rol = rolRepository.findById(id).orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+        rol.setRolTipo(RolTipo.valueOf(rolTipoStr.toUpperCase()));
+        Rol updated = rolRepository.save(rol);
+        return new RolDTO(updated.getId(), updated.getRolTipo().name());
     }
 
+    // Eliminar rol por ID
     public void deleteRol(Long id) {
         rolRepository.deleteById(id);
     }

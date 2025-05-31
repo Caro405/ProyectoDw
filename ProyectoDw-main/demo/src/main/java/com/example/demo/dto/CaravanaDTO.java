@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import java.util.List;
+
 public class CaravanaDTO {
 
     private Long id;
@@ -12,24 +14,15 @@ public class CaravanaDTO {
     private Integer puntosVidaMax;
     private boolean guardias;
 
-    private InventarioDTO inventarioDTO;  // Agregar propiedad inventarioDTO
+    // Solo incluimos los IDs de jugadores para evitar ciclos o datos innecesarios
+    private List<Long> jugadoresIds;
+
+    private Long inventarioId;
 
     public CaravanaDTO() {}
 
-    public CaravanaDTO(Long id, String nombre, Integer velocidad, Integer cargaActual, Integer capacidadMaxCarga, Integer dinero, Integer puntosVidaActual, Integer puntosVidaMax, boolean guardias, InventarioDTO inventarioDTO) {
-        this.id = id;
-        this.nombre = nombre;
-        this.velocidad = velocidad;
-        this.cargaActual = cargaActual;
-        this.capacidadMaxCarga = capacidadMaxCarga;
-        this.dinero = dinero;
-        this.puntosVidaActual = puntosVidaActual;
-        this.puntosVidaMax = puntosVidaMax;
-        this.guardias = guardias;
-        this.inventarioDTO = inventarioDTO;  // Asignar inventarioDTO en el constructor
-    }
+    // Getters y setters
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -102,12 +95,19 @@ public class CaravanaDTO {
         this.guardias = guardias;
     }
 
-    // Agregar los métodos getter y setter para inventarioDTO
-    public InventarioDTO getInventarioDTO() {
-        return inventarioDTO;
+    public List<Long> getJugadoresIds() {
+        return jugadoresIds;
     }
 
-    public void setInventarioDTO(InventarioDTO inventarioDTO) {
-        this.inventarioDTO = inventarioDTO;
+    public void setJugadoresIds(List<Long> jugadoresIds) {
+        this.jugadoresIds = jugadoresIds;
+    }
+
+    public Long getInventarioId() {
+        return inventarioId;
+    }
+
+    public void setInventarioId(Long inventarioId) {
+        this.inventarioId = inventarioId;
     }
 }

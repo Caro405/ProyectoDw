@@ -1,9 +1,10 @@
 package com.example.demo.Service;
 
-import com.example.demo.dto.JugadorDTO;
 import com.example.demo.Model.Jugador;
 import com.example.demo.Repository.JugadorRepository;
 import com.example.demo.Mapper.JugadorMapper;
+import com.example.demo.dto.JugadorDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,37 +17,40 @@ public class JugadorService {
     @Autowired
     private JugadorRepository jugadorRepository;
 
-    // Obtener todos los jugadores
-    public List<JugadorDTO> getAllJugadores() {
-        List<Jugador> jugadores = jugadorRepository.findAll();
-        return jugadores.stream()
-                .map(JugadorMapper.INSTANCE::jugadorToJugadorDTO) // Usamos el Mapper para convertir la entidad a DTO
+    @Autowired
+    private JugadorMapper jugadorMapper;
+
+    public List<JugadorDTO> getAll() {
+        return jugadorRepository.findAll()
+                .stream()
+                .map(jugadorMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener jugador por ID
-    public JugadorDTO getJugadorById(Long id) {
-        Jugador jugador = jugadorRepository.findById(id).orElseThrow();
-        return JugadorMapper.INSTANCE.jugadorToJugadorDTO(jugador); // Mapeo de entidad a DTO
+    public JugadorDTO getById(Long id) {
+        return jugadorRepository.findById(id)
+                .map(jugadorMapper::toDTO)
+                .orElse(null);
     }
 
-    // Crear un nuevo jugador
-    public JugadorDTO createJugador(JugadorDTO jugadorDTO) {
-        Jugador jugador = JugadorMapper.INSTANCE.jugadorDTOToJugador(jugadorDTO); // Convertir el DTO a entidad
-        jugadorRepository.save(jugador);
-        return JugadorMapper.INSTANCE.jugadorToJugadorDTO(jugador); // Retornar el DTO actualizado
+    public JugadorDTO create(JugadorDTO dto) {
+        Jugador entity = jugadorMapper.toEntity(dto);
+        // Aquí podrías buscar y setear la caravana si quieres
+        Jugador saved = jugadorRepository.save(entity);
+        return jugadorMapper.toDTO(saved);
     }
 
-    // Actualizar un jugador existente
-    public JugadorDTO updateJugador(Long id, JugadorDTO jugadorDTO) {
-        Jugador jugador = jugadorRepository.findById(id).orElseThrow();
-        jugador.setNombre(jugadorDTO.getNombre());
-        jugadorRepository.save(jugador);
-        return JugadorMapper.INSTANCE.jugadorToJugadorDTO(jugador); // Mapeo de la entidad actualizada a DTO
+    public JugadorDTO update(Long id, JugadorDTO dto) {
+        return jugadorRepository.findById(id)
+                .map(existing -> {
+                    existing.setNombre(dto.getNombre());
+                    // No actualizar relaciones por simplicidad
+                    Jugador updated = jugadorRepository.save(existing);
+                    return jugadorMapper.toDTO(updated);
+                }).orElse(null);
     }
 
-    // Eliminar un jugador por ID
-    public void deleteJugador(Long id) {
+    public void delete(Long id) {
         jugadorRepository.deleteById(id);
     }
 }

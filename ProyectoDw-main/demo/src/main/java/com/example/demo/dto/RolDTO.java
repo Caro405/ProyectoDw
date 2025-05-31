@@ -3,16 +3,15 @@ package com.example.demo.dto;
 public class RolDTO {
 
     private Long id;
-    private String rol;
-
+    private String rolTipo; 
     public RolDTO() {}
 
-    public RolDTO(Long id, String rol) {
+    public RolDTO(Long id, String rolTipo) {
         this.id = id;
-        this.rol = rol;
+        this.rolTipo = rolTipo;
     }
 
-    // Getters y Setters
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -21,11 +20,11 @@ public class RolDTO {
         this.id = id;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRolTipo() {
+        return rolTipo;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRolTipo(String rolTipo) {
+        this.rolTipo = rolTipo;
     }
 }

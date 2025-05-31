@@ -5,12 +5,16 @@ import com.example.demo.dto.RolDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+import java.util.List;
+
+@Mapper(componentModel = "spring")
 public interface RolMapper {
 
     RolMapper INSTANCE = Mappers.getMapper(RolMapper.class);
 
-    RolDTO rolToRolDTO(Rol rol);
+    RolDTO toDTO(Rol entity);
 
-    Rol rolDTOToRol(RolDTO rolDTO);
+    Rol toEntity(RolDTO dto);
+
+    List<RolDTO> toDTOList(List<Rol> entities);
 }
