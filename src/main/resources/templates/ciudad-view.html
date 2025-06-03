@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+    <title>Detalles de la Ciudad</title>
+</head>
+
+<body>
+    <div class="container">
+    <h1>Detalles de la Ciudad</h1>
+
+    <ul>
+        <li><strong>Nombre:</strong> <span th:text="${ciudad.nombre}"></span></li>
+        <li><strong>Impuestos:</strong> <span th:text="${ciudad.impuestos}"></span> %</li>
+    </ul>
+
+    <a href="/ciudad/list">
+        <button type="button">Volver</button>
+    </a>
+</div>
+</body>
+</html>
